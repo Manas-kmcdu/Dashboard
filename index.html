@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dashboard — Astro Arun Pandit</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amber:       #B8712A;
+  --amber-dk:    #8A5018;
+  --amber-lt:    #D4924A;
+  --amber-pale:  #FBF0D8;
+  --amber-bg:    #FDF6E8;
+  --gold:        #E8A535;
+  --gold-dk:     #C98A1A;
+  --cream:       #FFFCF5;
+  --cream-bd:    #EAD9B8;
+  --ink:         #1E1206;
+  --ink-mid:     #5C3D1A;
+  --ink-lt:      #9C7A4A;
+  --white:       #FFFFFF;
+  --green:       #2D7A4F;
+  --green-bg:    #EAF5EE;
+  --red:         #C0392B;
+  --red-bg:      #FDECEA;
+  --blue:        #2563EB;
+  --blue-bg:     #EEF4FF;
+  --purple:      #7C3AED;
+  --purple-bg:   #F3EEFF;
+  --shadow:      rgba(30,18,6,0.08);
+  --shadow-md:   rgba(30,18,6,0.14);
+  --r:           10px;
+  --r-sm:        7px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--amber-bg);
+  color:var(--ink);
+  min-height:100vh;
+  font-size:14px;
+}
+
+/* ══ SIDEBAR ══ */
+.sidebar {
+  position:fixed; top:0; left:0; bottom:0;
+  width:220px;
+  background:var(--amber-dk);
+  display:flex; flex-direction:column;
+  z-index:30;
+  padding:0 0 24px;
+}
+.sidebar-logo {
+  padding:20px 20px 16px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  margin-bottom:8px;
+}
+.logo-badge {
+  width:36px; height:36px; border-radius:50%;
+  background:var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:14px; font-weight:700; color:var(--ink);
+  margin-bottom:8px;
+}
+.logo-title {
+  font-family:'Playfair Display',serif;
+  font-size:0.82rem; font-weight:700;
+  color:var(--white); line-height:1.2;
+}
+.logo-sub {
+  font-size:0.65rem; color:rgba(255,255,255,0.45);
+  letter-spacing:0.06em; margin-top:1px;
+}
+
+.nav-section-label {
+  font-size:0.6rem; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.12em;
+  color:rgba(255,255,255,0.3);
+  padding:10px 20px 5px;
+}
+.nav-item {
+  display:flex; align-items:center; gap:9px;
+  padding:9px 20px;
+  font-size:0.83rem; font-weight:500;
+  color:rgba(255,255,255,0.55);
+  cursor:pointer;
+  border-left:2px solid transparent;
+  transition:all .18s;
+  user-select:none;
+}
+.nav-item:hover { color:rgba(255,255,255,0.9); background:rgba(255,255,255,0.05); }
+.nav-item.active { color:var(--gold); border-left-color:var(--gold); background:rgba(232,165,53,0.08); }
+.nav-icon { font-size:15px; flex-shrink:0; }
+
+.sidebar-footer {
+  margin-top:auto;
+  padding:12px 20px 0;
+  border-top:1px solid rgba(255,255,255,0.07);
+}
+.date-chip {
+  font-size:0.7rem; color:rgba(255,255,255,0.4);
+  font-family:'DM Mono',monospace;
+}
+
+/* ══ MAIN ══ */
+.main {
+  margin-left:220px;
+  padding:32px 36px;
+  min-height:100vh;
+}
+
+/* top bar */
+.topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:28px;
+}
+.topbar-left h1 {
+  font-family:'Playfair Display',serif;
+  font-size:1.55rem; font-weight:700; color:var(--ink);
+  line-height:1.2;
+}
+.topbar-left .topbar-sub {
+  font-size:0.8rem; color:var(--ink-lt); margin-top:2px;
+}
+.topbar-right {
+  display:flex; gap:8px; align-items:center;
+}
+.today-badge {
+  background:var(--amber-pale);
+  border:1px solid var(--cream-bd);
+  border-radius:20px;
+  padding:5px 13px;
+  font-size:0.75rem; font-weight:500;
+  color:var(--amber-dk);
+  font-family:'DM Mono',monospace;
+}
+
+/* ══ TABS ══ */
+.section { display:none; }
+.section.active { display:block; }
+
+/* ══ STAT CARDS ══ */
+.stat-row {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:24px;
+}
+.stat-card {
+  background:var(--white);
+  border:1px solid var(--cream-bd);
+  border-radius:var(--r);
+  padding:18px 20px;
+  box-shadow:0 1px 6px var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.stat-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:3px;
+}
+.stat-card.amber::before { background:var(--gold); }
+.stat-card.green::before { background:var(--green); }
+.stat-card.blue::before  { background:var(--blue); }
+.stat-card.purple::before { background:var(--purple); }
+.stat-label { font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-lt); margin-bottom:6px; }
+.stat-val   { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:var(--ink); line-height:1; }
+.stat-meta  { font-size:0.72rem; color:var(--ink-lt); margin-top:4px; }
+.stat-delta {
+  display:inline-flex; align-items:center; gap:3px;
+  font-size:0.72rem; font-weight:600;
+  padding:2px 7px; border-radius:20px; margin-top:4px;
+}
+.stat-delta.up   { background:var(--green-bg); color:var(--green); }
+.stat-delta.down { background:var(--red-bg);   color:var(--red); }
+
+/* ══ GRID LAYOUT ══ */
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin-bottom:18px; }
+.col-span2 { grid-column:span 2; }
+
+/* ══ CARD ══ */
+.card {
+  background:var(--white);
+  border:1px solid var(--cream-bd);
+  border-radius:var(--r);
+  padding:20px 22px;
+  box-shadow:0 1px 6px var(--shadow);
+}
+.card-title {
+  font-family:'Playfair Display',serif;
+  font-size:0.95rem; font-weight:600; color:var(--ink);
+  margin-bottom:14px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.card-title-left { display:flex; align-items:center; gap:8px; }
+.card-icon { font-size:16px; }
+
+/* ══ BUTTONS ══ */
+.btn {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:7px 14px; border-radius:var(--r-sm);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.78rem; font-weight:600;
+  cursor:pointer; border:none;
+  transition:all .18s;
+}
+.btn-amber {
+  background:linear-gradient(180deg,var(--gold),var(--gold-dk));
+  color:var(--ink);
+  box-shadow:0 2px 8px rgba(200,140,30,0.28);
+}
+.btn-amber:hover { opacity:.9; transform:translateY(-1px); }
+.btn-ghost {
+  background:transparent;
+  border:1px solid var(--cream-bd);
+  color:var(--ink-mid);
+}
+.btn-ghost:hover { background:var(--amber-pale); border-color:var(--amber-lt); color:var(--amber-dk); }
+.btn-danger { background:var(--red-bg); color:var(--red); border:1px solid #f5c6c2; }
+.btn-danger:hover { background:#fbd5d1; }
+.btn-sm { padding:4px 10px; font-size:0.72rem; }
+.btn-icon { padding:5px 8px; font-size:14px; background:transparent; border:1px solid var(--cream-bd); color:var(--ink-lt); border-radius:var(--r-sm); cursor:pointer; transition:all .15s; }
+.btn-icon:hover { background:var(--amber-pale); color:var(--amber-dk); border-color:var(--amber-lt); }
+
+/* ══ INITIATIVES ══ */
+.initiative-list { display:flex; flex-direction:column; gap:10px; }
+.initiative-item {
+  background:var(--cream);
+  border:1px solid var(--cream-bd);
+  border-radius:var(--r-sm);
+  padding:14px 16px;
+  display:grid;
+  grid-template-columns:auto 1fr auto auto;
+  align-items:start; gap:12px;
+  transition:box-shadow .18s;
+}
+.initiative-item:hover { box-shadow:0 2px 12px var(--shadow-md); }
+.init-status-dot {
+  width:10px; height:10px; border-radius:50%;
+  flex-shrink:0; margin-top:4px;
+}
+.dot-active   { background:var(--green); }
+.dot-planned  { background:var(--gold); }
+.dot-paused   { background:var(--ink-lt); }
+.dot-done     { background:var(--blue); }
+.init-body {}
+.init-title { font-weight:600; font-size:0.88rem; color:var(--ink); margin-bottom:3px; }
+.init-desc  { font-size:0.78rem; color:var(--ink-mid); line-height:1.5; }
+.init-meta  { display:flex; gap:8px; margin-top:6px; flex-wrap:wrap; }
+.tag {
+  font-size:0.67rem; font-weight:600; letter-spacing:0.04em;
+  padding:2px 8px; border-radius:20px;
+}
+.tag-amber  { background:var(--amber-pale); color:var(--amber-dk); }
+.tag-green  { background:var(--green-bg);   color:var(--green); }
+.tag-blue   { background:var(--blue-bg);    color:var(--blue); }
+.tag-purple { background:var(--purple-bg);  color:var(--purple); }
+.tag-gray   { background:#F1EDE4; color:var(--ink-mid); }
+.init-progress-wrap { margin-top:8px; }
+.progress-bar-bg { background:var(--cream-bd); border-radius:3px; height:5px; overflow:hidden; }
+.progress-bar-fill { height:100%; border-radius:3px; background:linear-gradient(to right,var(--gold),var(--amber)); transition:width .4s ease; }
+.init-pct { font-size:0.68rem; color:var(--ink-lt); margin-top:3px; font-family:'DM Mono',monospace; }
+.init-actions { display:flex; flex-direction:column; gap:4px; align-items:flex-end; }
+.init-impact {
+  text-align:right;
+}
+.impact-label { font-size:0.62rem; color:var(--ink-lt); text-transform:uppercase; letter-spacing:0.06em; }
+.impact-val   { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--amber-dk); }
+
+/* ══ MODAL ══ */
+.modal-bg {
+  display:none; position:fixed; inset:0;
+  background:rgba(30,18,6,0.5);
+  z-index:50; align-items:center; justify-content:center;
+}
+.modal-bg.open { display:flex; }
+.modal {
+  background:var(--white);
+  border-radius:var(--r);
+  padding:28px 30px;
+  width:520px; max-width:95vw;
+  box-shadow:0 8px 48px rgba(30,18,6,0.25);
+  animation:modalIn .25s ease;
+}
+@keyframes modalIn { from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);} }
+.modal h3 { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--ink); margin-bottom:18px; }
+.form-field { margin-bottom:14px; }
+.form-field label { display:block; font-size:0.74rem; font-weight:600; color:var(--ink-mid); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.06em; }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width:100%; background:var(--amber-bg);
+  border:1px solid var(--cream-bd); border-radius:var(--r-sm);
+  padding:9px 12px;
+  font-family:'DM Sans',sans-serif; font-size:0.85rem; color:var(--ink);
+  outline:none; transition:border-color .18s;
+  -webkit-appearance:none;
+}
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus { border-color:var(--gold); background:var(--white); }
+.form-field textarea { resize:vertical; min-height:72px; }
+.form-row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.modal-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:18px; }
+
+/* ══ TASKS ══ */
+.task-item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--amber-bg);
+}
+.task-item:last-child { border-bottom:none; }
+.task-cb {
+  width:17px; height:17px; border-radius:4px;
+  border:1.5px solid var(--cream-bd);
+  background:var(--white); flex-shrink:0; margin-top:1px;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:10px; color:transparent;
+  transition:all .15s;
+}
+.task-cb.checked { background:var(--green); border-color:var(--green); color:var(--white); }
+.task-body { flex:1; }
+.task-title { font-size:0.85rem; font-weight:500; color:var(--ink); transition:color .15s; }
+.task-title.done { text-decoration:line-through; color:var(--ink-lt); }
+.task-meta-row { display:flex; gap:8px; margin-top:3px; align-items:center; flex-wrap:wrap; }
+.task-due { font-size:0.71rem; color:var(--ink-lt); font-family:'DM Mono',monospace; }
+.task-due.overdue { color:var(--red); font-weight:600; }
+.task-actions { display:flex; gap:4px; }
+
+/* ══ FUNNEL TABLE ══ */
+.funnel-table { width:100%; border-collapse:collapse; }
+.funnel-table th {
+  font-size:0.68rem; font-weight:600; text-transform:uppercase;
+  letter-spacing:0.07em; color:var(--ink-lt);
+  padding:6px 10px; text-align:left;
+  border-bottom:1px solid var(--cream-bd);
+}
+.funnel-table td { padding:9px 10px; font-size:0.83rem; border-bottom:1px solid var(--amber-bg); }
+.funnel-table tr:last-child td { border-bottom:none; }
+.funnel-table tr:hover td { background:var(--amber-bg); }
+.conv-bar-wrap { display:flex; align-items:center; gap:8px; }
+.conv-bar { flex:1; height:6px; background:var(--cream-bd); border-radius:3px; overflow:hidden; }
+.conv-fill { height:100%; border-radius:3px; background:linear-gradient(to right,var(--gold),var(--amber)); }
+.conv-pct  { font-size:0.72rem; font-family:'DM Mono',monospace; color:var(--ink-mid); min-width:36px; text-align:right; }
+
+/* ══ CONTENT TABLE ══ */
+.content-table { width:100%; border-collapse:collapse; }
+.content-table th { font-size:0.67rem; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-lt); padding:6px 10px; border-bottom:1px solid var(--cream-bd); text-align:left; }
+.content-table td { padding:9px 10px; font-size:0.82rem; border-bottom:1px solid var(--amber-bg); vertical-align:middle; }
+.content-table tr:last-child td { border-bottom:none; }
+.content-table tr:hover td { background:var(--amber-bg); }
+.status-pill { display:inline-block; padding:2px 9px; border-radius:20px; font-size:0.68rem; font-weight:600; }
+.sp-live      { background:var(--green-bg); color:var(--green); }
+.sp-draft     { background:#FFF3E0; color:#E65100; }
+.sp-planned   { background:var(--blue-bg); color:var(--blue); }
+.sp-review    { background:var(--purple-bg); color:var(--purple); }
+
+/* ══ NOTES ══ */
+.note-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.note-card {
+  background:var(--amber-pale);
+  border:1px solid var(--cream-bd);
+  border-radius:var(--r-sm);
+  padding:14px 15px;
+  position:relative;
+  min-height:100px;
+}
+.note-card .note-text { font-size:0.83rem; color:var(--ink-mid); line-height:1.6; white-space:pre-wrap; word-break:break-word; }
+.note-card .note-date { font-size:0.67rem; color:var(--ink-lt); margin-top:8px; font-family:'DM Mono',monospace; }
+.note-card .note-del { position:absolute; top:8px; right:8px; opacity:0; transition:opacity .15s; }
+.note-card:hover .note-del { opacity:1; }
+.note-add-card {
+  background:var(--white);
+  border:1.5px dashed var(--cream-bd);
+  border-radius:var(--r-sm);
+  padding:14px 15px;
+  min-height:100px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:var(--ink-lt); font-size:0.82rem;
+  gap:6px; transition:all .18s;
+}
+.note-add-card:hover { border-color:var(--gold); color:var(--amber); background:var(--amber-pale); }
+
+/* ══ WEEKLY REVIEW ══ */
+.review-cols { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.review-col h4 { font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:10px; }
+.review-col.wins h4 { color:var(--green); }
+.review-col.blocks h4 { color:var(--red); }
+.review-list { list-style:none; }
+.review-list li {
+  display:flex; gap:8px; align-items:flex-start;
+  font-size:0.83rem; color:var(--ink);
+  padding:6px 0; border-bottom:1px solid var(--amber-bg);
+}
+.review-list li:last-child { border-bottom:none; }
+.ri-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+.wins .ri-dot   { background:var(--green); }
+.blocks .ri-dot { background:var(--red); }
+
+/* ══ MINI CHART BARS ══ */
+.mini-chart { display:flex; align-items:flex-end; gap:5px; height:48px; }
+.mini-bar { flex:1; border-radius:3px 3px 0 0; background:var(--gold); opacity:.7; min-width:8px; transition:opacity .15s; }
+.mini-bar:hover { opacity:1; }
+.mini-bar.current { opacity:1; background:var(--amber); }
+
+/* ══ EMPTY STATE ══ */
+.empty-state { text-align:center; padding:32px 20px; color:var(--ink-lt); }
+.empty-state .es-icon { font-size:32px; margin-bottom:10px; display:block; }
+.empty-state p { font-size:0.84rem; }
+
+/* ══ DIVIDER ══ */
+.divider { height:1px; background:var(--cream-bd); margin:16px 0; }
+
+/* scrollbar */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--cream-bd); border-radius:3px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">A</div>
+    <div class="logo-title">Astro Arun Pandit</div>
+    <div class="logo-sub">Strategy & Ops · My Dashboard</div>
+  </div>
+
+  <div class="nav-section-label">Overview</div>
+  <div class="nav-item active" onclick="switchTab('overview',this)">
+    <span class="nav-icon">◈</span> Overview
+  </div>
+
+  <div class="nav-section-label">Work</div>
+  <div class="nav-item" onclick="switchTab('initiatives',this)">
+    <span class="nav-icon">⟡</span> Initiatives
+  </div>
+  <div class="nav-item" onclick="switchTab('tasks',this)">
+    <span class="nav-icon">✓</span> Tasks
+  </div>
+  <div class="nav-item" onclick="switchTab('funnel',this)">
+    <span class="nav-icon">⌥</span> Funnel Metrics
+  </div>
+  <div class="nav-item" onclick="switchTab('content',this)">
+    <span class="nav-icon">✦</span> Content / SEO
+  </div>
+
+  <div class="nav-section-label">Thinking</div>
+  <div class="nav-item" onclick="switchTab('notes',this)">
+    <span class="nav-icon">◻</span> Notes & Ideas
+  </div>
+  <div class="nav-item" onclick="switchTab('review',this)">
+    <span class="nav-icon">↻</span> Weekly Review
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="date-chip" id="sidebarDate"></div>
+  </div>
+</aside>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main class="main">
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1 id="pageTitle">Overview</h1>
+      <div class="topbar-sub" id="pageSub">Good morning — here's where things stand today.</div>
+    </div>
+    <div class="topbar-right">
+      <div class="today-badge" id="todayBadge"></div>
+    </div>
+  </div>
+
+  <!-- ══ OVERVIEW ══ -->
+  <div class="section active" id="sec-overview">
+    <div class="stat-row">
+      <div class="stat-card amber">
+        <div class="stat-label">Active Initiatives</div>
+        <div class="stat-val" id="ov-init-count">0</div>
+        <div class="stat-meta">across all pillars</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Tasks Completed</div>
+        <div class="stat-val" id="ov-tasks-done">0</div>
+        <div class="stat-delta up" id="ov-tasks-pct">↑ 0 open</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-label">Funnel Conv. Rate</div>
+        <div class="stat-val">3.2%</div>
+        <div class="stat-delta up">↑ 0.4% vs last wk</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-label">Content Pieces</div>
+        <div class="stat-val" id="ov-content-count">0</div>
+        <div class="stat-meta">live &amp; in pipeline</div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <!-- Recent Initiatives -->
+      <div class="card">
+        <div class="card-title">
+          <div class="card-title-left"><span class="card-icon">⟡</span> Top Initiatives</div>
+          <button class="btn btn-ghost btn-sm" onclick="switchTabByName('initiatives')">View all →</button>
+        </div>
+        <div id="ov-init-list"><div class="empty-state"><span class="es-icon">⟡</span><p>No initiatives yet</p></div></div>
+      </div>
+
+      <!-- Task snapshot -->
+      <div class="card">
+        <div class="card-title">
+          <div class="card-title-left"><span class="card-icon">✓</span> Open Tasks</div>
+          <button class="btn btn-ghost btn-sm" onclick="switchTabByName('tasks')">View all →</button>
+        </div>
+        <div id="ov-task-list"><div class="empty-state"><span class="es-icon">✓</span><p>No tasks yet</p></div></div>
+      </div>
+    </div>
+
+    <!-- Funnel snapshot -->
+    <div class="card" style="margin-bottom:18px;">
+      <div class="card-title">
+        <div class="card-title-left"><span class="card-icon">⌥</span> Funnel Snapshot — This Week</div>
+        <button class="btn btn-ghost btn-sm" onclick="switchTabByName('funnel')">Full metrics →</button>
+      </div>
+      <table class="funnel-table">
+        <thead><tr>
+          <th>Stage</th><th>Visitors / Sessions</th><th>Conversion</th><th>vs Last Week</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Calculator submissions</td><td>4,820</td><td><div class="conv-bar-wrap"><div class="conv-bar"><div class="conv-fill" style="width:100%"></div></div><span class="conv-pct">100%</span></div></td><td><span class="stat-delta up btn-sm">↑ +12%</span></td></tr>
+          <tr><td>Report page views</td><td>3,104</td><td><div class="conv-bar-wrap"><div class="conv-bar"><div class="conv-fill" style="width:64%"></div></div><span class="conv-pct">64.4%</span></div></td><td><span class="stat-delta up btn-sm">↑ +6%</span></td></tr>
+          <tr><td>Paywall triggered</td><td>2,210</td><td><div class="conv-bar-wrap"><div class="conv-bar"><div class="conv-fill" style="width:45%"></div></div><span class="conv-pct">45.8%</span></div></td><td><span class="stat-delta up btn-sm">↑ +3%</span></td></tr>
+          <tr><td>Purchase clicks</td><td>512</td><td><div class="conv-bar-wrap"><div class="conv-bar"><div class="conv-fill" style="width:10%"></div></div><span class="conv-pct">10.6%</span></div></td><td><span class="stat-delta down btn-sm">↓ -1%</span></td></tr>
+          <tr><td>Completed purchases</td><td>156</td><td><div class="conv-bar-wrap"><div class="conv-bar"><div class="conv-fill" style="width:3%"></div></div><span class="conv-pct">3.2%</span></div></td><td><span class="stat-delta up btn-sm">↑ +0.4%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ INITIATIVES ══ -->
+  <div class="section" id="sec-initiatives">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+      <button class="btn btn-amber" onclick="openInitModal()">+ Add Initiative</button>
+    </div>
+    <div class="initiative-list" id="initiativeList">
+      <div class="empty-state"><span class="es-icon">⟡</span><p>No initiatives yet — add your first one above.</p></div>
+    </div>
+  </div>
+
+  <!-- ══ TASKS ══ -->
+  <div class="section" id="sec-tasks">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+      <button class="btn btn-amber" onclick="openTaskModal()">+ Add Task</button>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title"><div class="card-title-left"><span class="card-icon">🔴</span> This Week</div></div>
+        <div id="tasks-week"><div class="empty-state"><p>No tasks this week</p></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><div class="card-title-left"><span class="card-icon">🟡</span> Upcoming</div></div>
+        <div id="tasks-upcoming"><div class="empty-state"><p>No upcoming tasks</p></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="card-title-left"><span class="card-icon">✅</span> Completed</div></div>
+      <div id="tasks-done"><div class="empty-state"><p>Nothing completed yet</p></div></div>
+    </div>
+  </div>
+
+  <!-- ══ FUNNEL METRICS ══ -->
+  <div class="section" id="sec-funnel">
+    <div class="stat-row" style="margin-bottom:24px;">
+      <div class="stat-card amber">
+        <div class="stat-label">Calculator Submissions</div>
+        <div class="stat-val">4,820</div>
+        <div class="stat-delta up">↑ +12% WoW</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Report → Purchase CVR</div>
+        <div class="stat-val">3.2%</div>
+        <div class="stat-delta up">↑ +0.4pp</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-label">Avg. Revenue / User</div>
+        <div class="stat-val">₹842</div>
+        <div class="stat-delta up">↑ +₹64</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-label">Weekly Revenue</div>
+        <div class="stat-val">₹1.3L</div>
+        <div class="stat-delta up">↑ +18%</div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title"><div class="card-title-left"><span class="card-icon">⌥</span> Full Funnel Breakdown</div></div>
+        <table class="funnel-table">
+          <thead><tr><th>Stage</th><th>Count</th><th>Conv %</th><th>Drop-off</th></tr></thead>
+          <tbody>
+            <tr><td>Landing page visits</td><td>18,400</td><td>—</td><td>—</td></tr>
+            <tr><td>Calculator started</td><td>7,210</td><td><span style="font-family:'DM Mono',monospace">39.2%</span></td><td>60.8%</td></tr>
+            <tr><td>Submitted (step 1)</td><td>4,820</td><td><span style="font-family:'DM Mono',monospace">66.8%</span></td><td>33.2%</td></tr>
+            <tr><td>Report page viewed</td><td>3,104</td><td><span style="font-family:'DM Mono',monospace">64.4%</span></td><td>35.6%</td></tr>
+            <tr><td>Paywall triggered</td><td>2,210</td><td><span style="font-family:'DM Mono',monospace">71.2%</span></td><td>28.8%</td></tr>
+            <tr><td>Clicked Unlock CTA</td><td>512</td><td><span style="font-family:'DM Mono',monospace">23.2%</span></td><td>76.8%</td></tr>
+            <tr><td>Purchase page viewed</td><td>488</td><td><span style="font-family:'DM Mono',monospace">95.3%</span></td><td>4.7%</td></tr>
+            <tr><td><strong>Completed purchase</strong></td><td><strong>156</strong></td><td><span style="font-family:'DM Mono',monospace;font-weight:700;color:var(--green)">32.0%</span></td><td>68.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><div class="card-title-left"><span class="card-icon">₹</span> Revenue by Plan</div></div>
+        <table class="funnel-table">
+          <thead><tr><th>Plan</th><th>Units</th><th>Revenue</th><th>Mix</th></tr></thead>
+          <tbody>
+            <tr><td>Basic (₹499)</td><td>72</td><td>₹35,928</td><td><div class="conv-bar-wrap"><div class="conv-bar"><div class="conv-fill" style="width:46%"></div></div><span class="conv-pct">46%</span></div></td></tr>
+            <tr><td>Premium (₹999)</td><td>68</td><td>₹67,932</td><td><div class="conv-bar-wrap"><div class="conv-bar"><div class="conv-fill" style="width:44%"></div></div><span class="conv-pct">44%</span></div></td></tr>
+            <tr><td>Elite (₹2,499)</td><td>16</td><td>₹39,984</td><td><div class="conv-bar-wrap"><div class="conv-bar"><div class="conv-fill" style="width:10%"></div></div><span class="conv-pct">10%</span></div></td></tr>
+          </tbody>
+        </table>
+        <div class="divider"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.8rem;color:var(--ink-mid);">Total weekly revenue</span>
+          <span style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--amber-dk);">₹1,43,844</span>
+        </div>
+        <div style="margin-top:14px;">
+          <div style="font-size:0.72rem;color:var(--ink-lt);margin-bottom:8px;text-transform:uppercase;letter-spacing:.07em;">8-week revenue trend</div>
+          <div class="mini-chart">
+            <div class="mini-bar" style="height:38%"></div>
+            <div class="mini-bar" style="height:52%"></div>
+            <div class="mini-bar" style="height:44%"></div>
+            <div class="mini-bar" style="height:61%"></div>
+            <div class="mini-bar" style="height:55%"></div>
+            <div class="mini-bar" style="height:70%"></div>
+            <div class="mini-bar" style="height:82%"></div>
+            <div class="mini-bar current" style="height:100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="card-title-left"><span class="card-icon">🎯</span> Revenue Target Tracker</div></div>
+      <div class="grid3">
+        <div>
+          <div class="stat-label" style="margin-bottom:6px;">Weekly Target</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink);">₹1,50,000</div>
+          <div class="divider"></div>
+          <div class="progress-bar-bg" style="height:8px;margin-bottom:4px;"><div class="progress-bar-fill" style="width:96%"></div></div>
+          <div style="font-size:0.72rem;color:var(--ink-lt);font-family:'DM Mono',monospace;">96% achieved · ₹6,156 remaining</div>
+        </div>
+        <div>
+          <div class="stat-label" style="margin-bottom:6px;">Monthly Target</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink);">₹6,00,000</div>
+          <div class="divider"></div>
+          <div class="progress-bar-bg" style="height:8px;margin-bottom:4px;"><div class="progress-bar-fill" style="width:72%"></div></div>
+          <div style="font-size:0.72rem;color:var(--ink-lt);font-family:'DM Mono',monospace;">72% achieved · ₹1,68,000 remaining</div>
+        </div>
+        <div>
+          <div class="stat-label" style="margin-bottom:6px;">Annual Target</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink);">₹75,00,000</div>
+          <div class="divider"></div>
+          <div class="progress-bar-bg" style="height:8px;margin-bottom:4px;"><div class="progress-bar-fill" style="width:38%"></div></div>
+          <div style="font-size:0.72rem;color:var(--ink-lt);font-family:'DM Mono',monospace;">38% achieved · ₹46.5L remaining</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONTENT / SEO ══ -->
+  <div class="section" id="sec-content">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+      <button class="btn btn-amber" onclick="openContentModal()">+ Add Content</button>
+    </div>
+    <div class="stat-row" style="margin-bottom:20px;">
+      <div class="stat-card amber">
+        <div class="stat-label">Live Pieces</div>
+        <div class="stat-val" id="content-live-count">0</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Organic Sessions</div>
+        <div class="stat-val">12.4K</div>
+        <div class="stat-delta up">↑ +8% MoM</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-label">Top Keyword Rank</div>
+        <div class="stat-val">#3</div>
+        <div class="stat-meta">lal kitab calculator</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-label">Backlinks</div>
+        <div class="stat-val">248</div>
+        <div class="stat-delta up">↑ +12 this week</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="card-title-left"><span class="card-icon">✦</span> Content Tracker</div></div>
+      <table class="content-table" id="contentTable">
+        <thead><tr>
+          <th>Title / Topic</th><th>Type</th><th>Target Keyword</th><th>Status</th><th>Traffic</th><th></th>
+        </tr></thead>
+        <tbody id="contentBody">
+          <tr><td colspan="6"><div class="empty-state"><p>No content tracked yet — add your first piece above.</p></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ NOTES ══ -->
+  <div class="section" id="sec-notes">
+    <div class="note-grid" id="noteGrid">
+      <div class="note-add-card" onclick="openNoteModal()">
+        <span>＋</span> Add note or idea
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ WEEKLY REVIEW ══ -->
+  <div class="section" id="sec-review">
+    <div class="grid2" style="margin-bottom:18px;">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:8px;">
+          <div class="card-title-left" style="font-size:0.85rem;">Week of <span id="weekLabel">—</span></div>
+        </div>
+        <div class="review-cols">
+          <div class="review-col wins">
+            <h4>🏆 Wins</h4>
+            <ul class="review-list" id="winsListEl">
+              <li><span class="ri-dot"></span> Funnel CVR improved to 3.2%</li>
+              <li><span class="ri-dot"></span> Paywall scroll mechanic shipped</li>
+              <li><span class="ri-dot"></span> New lal kitab SEO article live</li>
+            </ul>
+          </div>
+          <div class="review-col blocks">
+            <h4>🚧 Blockers</h4>
+            <ul class="review-list" id="blocksListEl">
+              <li><span class="ri-dot"></span> Purchase-to-checkout drop-off still at 68%</li>
+              <li><span class="ri-dot"></span> Elite plan barely moving — needs repackaging</li>
+            </ul>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="addReviewItem('win')">+ Add win</button>
+          <button class="btn btn-ghost btn-sm" onclick="addReviewItem('block')">+ Add blocker</button>
+          <button class="btn btn-danger btn-sm" onclick="clearReview()">Clear week</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><div class="card-title-left"><span class="card-icon">🎯</span> Focus for Next Week</div></div>
+        <textarea id="nextWeekFocus" style="width:100%;background:var(--amber-bg);border:1px solid var(--cream-bd);border-radius:var(--r-sm);padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--ink);outline:none;resize:vertical;min-height:120px;line-height:1.6;" placeholder="What are the 3 most important things to push next week?"></textarea>
+        <div style="margin-top:8px;text-align:right;">
+          <button class="btn btn-amber btn-sm" onclick="saveFocus()">Save</button>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:0.72rem;color:var(--ink-lt);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">Monthly north star</div>
+        <textarea id="monthlyNorth" style="width:100%;background:var(--amber-bg);border:1px solid var(--cream-bd);border-radius:var(--r-sm);padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--ink);outline:none;resize:vertical;min-height:60px;line-height:1.6;" placeholder="E.g. Hit ₹6L monthly revenue by optimising the funnel paywall CTR"></textarea>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ══ MODALS ══ -->
+
+<!-- Initiative Modal -->
+<div class="modal-bg" id="initModal">
+  <div class="modal">
+    <h3 id="initModalTitle">New Initiative</h3>
+    <div class="form-field">
+      <label>Initiative name</label>
+      <input type="text" id="init-name" placeholder="e.g. Funnel scroll paywall">
+    </div>
+    <div class="form-field">
+      <label>Description</label>
+      <textarea id="init-desc" placeholder="What is this initiative about?"></textarea>
+    </div>
+    <div class="form-row2">
+      <div class="form-field">
+        <label>Status</label>
+        <select id="init-status">
+          <option value="planned">Planned</option>
+          <option value="active">Active</option>
+          <option value="paused">Paused</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Pillar</label>
+        <select id="init-pillar">
+          <option value="Revenue">Revenue</option>
+          <option value="Product">Product</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Operations">Operations</option>
+          <option value="SEO">SEO</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row2">
+      <div class="form-field">
+        <label>Progress (%)</label>
+        <input type="number" id="init-progress" min="0" max="100" value="0" placeholder="0–100">
+      </div>
+      <div class="form-field">
+        <label>Est. Revenue Impact</label>
+        <input type="text" id="init-impact" placeholder="e.g. ₹50K/mo">
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('initModal')">Cancel</button>
+      <button class="btn btn-amber" onclick="saveInitiative()">Save Initiative</button>
+    </div>
+  </div>
+</div>
+
+<!-- Task Modal -->
+<div class="modal-bg" id="taskModal">
+  <div class="modal">
+    <h3>New Task</h3>
+    <div class="form-field">
+      <label>Task</label>
+      <input type="text" id="task-title" placeholder="What needs doing?">
+    </div>
+    <div class="form-row2">
+      <div class="form-field">
+        <label>Due date</label>
+        <input type="date" id="task-due">
+      </div>
+      <div class="form-field">
+        <label>Priority</label>
+        <select id="task-priority">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Area</label>
+      <select id="task-area">
+        <option>Revenue</option>
+        <option>Funnel</option>
+        <option>Content</option>
+        <option>Operations</option>
+        <option>Product</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('taskModal')">Cancel</button>
+      <button class="btn btn-amber" onclick="saveTask()">Add Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- Content Modal -->
+<div class="modal-bg" id="contentModal">
+  <div class="modal">
+    <h3>New Content Piece</h3>
+    <div class="form-field">
+      <label>Title / Topic</label>
+      <input type="text" id="cnt-title" placeholder="e.g. Lal Kitab remedies for Shani dosha">
+    </div>
+    <div class="form-row2">
+      <div class="form-field">
+        <label>Type</label>
+        <select id="cnt-type">
+          <option>Blog Post</option>
+          <option>Calculator Page</option>
+          <option>Landing Page</option>
+          <option>Video</option>
+          <option>Social</option>
+          <option>Email</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Status</label>
+        <select id="cnt-status">
+          <option value="planned">Planned</option>
+          <option value="draft">Draft</option>
+          <option value="review">In Review</option>
+          <option value="live">Live</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row2">
+      <div class="form-field">
+        <label>Target keyword</label>
+        <input type="text" id="cnt-keyword" placeholder="e.g. lal kitab online">
+      </div>
+      <div class="form-field">
+        <label>Monthly traffic (est.)</label>
+        <input type="text" id="cnt-traffic" placeholder="e.g. 1,200">
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('contentModal')">Cancel</button>
+      <button class="btn btn-amber" onclick="saveContent()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Note Modal -->
+<div class="modal-bg" id="noteModal">
+  <div class="modal">
+    <h3>New Note / Idea</h3>
+    <div class="form-field">
+      <label>Note</label>
+      <textarea id="note-text" rows="5" placeholder="Capture an idea, observation, or thought..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('noteModal')">Cancel</button>
+      <button class="btn btn-amber" onclick="saveNote()">Save Note</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ══ STATE ══
+const state = {
+  initiatives: [],
+  tasks: [],
+  content: [],
+  notes: []
+};
+
+// ══ SEED DATA ══
+function seedData() {
+  state.initiatives = [
+    { id:1, name:'Funnel scroll paywall', desc:'Replace static blur gate with scroll-triggered bottom sheet that locks content progressively and persists after dismiss.', status:'active', pillar:'Revenue', progress:80, impact:'₹40K/mo' },
+    { id:2, name:'Lal Kitab SEO expansion', desc:'Create 12 new calculator landing pages targeting long-tail lal kitab keywords. Each page feeds the report funnel.', status:'active', pillar:'SEO', progress:35, impact:'₹25K/mo' },
+    { id:3, name:'Elite plan repositioning', desc:'Repackage Elite (₹2,499) to emphasise live consultation value. Current conversion is only 10% of purchases.', status:'planned', pillar:'Revenue', progress:10, impact:'₹60K/mo' },
+    { id:4, name:'Email nurture sequence', desc:'5-email post-submission nurture for users who submitted the calculator but did not purchase a report.', status:'planned', pillar:'Marketing', progress:0, impact:'₹20K/mo' },
+  ];
+  state.tasks = [
+    { id:1, title:'Review paywall CTA copy for A/B test', due:'2025-04-23', priority:'high', area:'Funnel', done:false },
+    { id:2, title:'Brief designer on Elite plan visual revamp', due:'2025-04-24', priority:'high', area:'Revenue', done:false },
+    { id:3, title:'Publish "Shani dosha remedies" blog post', due:'2025-04-25', priority:'medium', area:'Content', done:false },
+    { id:4, title:'Audit checkout drop-off with Hotjar', due:'2025-04-28', priority:'medium', area:'Funnel', done:false },
+    { id:5, title:'Set up Razorpay webhook for confirmation email', due:'2025-04-30', priority:'low', area:'Product', done:false },
+    { id:6, title:'Weekly revenue report to Arun ji', due:'2025-04-21', priority:'high', area:'Operations', done:true },
+  ];
+  state.content = [
+    { id:1, title:'Free Lal Kitab Calculator', type:'Calculator Page', keyword:'lal kitab calculator', status:'live', traffic:'8,400' },
+    { id:2, title:'Shani Dosha — Causes, Effects & Remedies', type:'Blog Post', keyword:'shani dosha remedies', status:'live', traffic:'2,100' },
+    { id:3, title:'Rahu in 11th House — Complete Guide', type:'Blog Post', keyword:'rahu in 11th house', status:'review', traffic:'—' },
+    { id:4, title:'Elite Consultation Landing Page', type:'Landing Page', keyword:'astro arun pandit consultation', status:'draft', traffic:'—' },
+  ];
+  state.notes = [
+    { id:1, text:'Idea: show a "X people unlocked their report today" social proof counter on the paywall sheet. Could push urgency.', date:'21 Apr 2025' },
+    { id:2, text:'Talk to Arun ji about creating a "Yearly Forecast" upsell for existing report buyers — email the list.', date:'20 Apr 2025' },
+    { id:3, text:'Look into WhatsApp Business API for delivery notification + 3-day post-purchase follow-up nudge for reviews.', date:'19 Apr 2025' },
+  ];
+}
+
+// ══ INIT ══
+function init() {
+  seedData();
+  setDates();
+  renderAll();
+}
+
+function setDates() {
+  const now = new Date();
+  const opts = { weekday:'long', day:'numeric', month:'long', year:'numeric' };
+  const short = { day:'numeric', month:'short', year:'numeric' };
+  document.getElementById('todayBadge').textContent = now.toLocaleDateString('en-IN', short);
+  document.getElementById('sidebarDate').textContent = now.toLocaleDateString('en-IN', opts);
+  // week label
+  const monday = new Date(now); monday.setDate(now.getDate() - now.getDay() + 1);
+  const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6);
+  document.getElementById('weekLabel').textContent =
+    monday.toLocaleDateString('en-IN',{day:'numeric',month:'short'}) + ' – ' +
+    sunday.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+}
+
+function renderAll() {
+  renderInitiatives();
+  renderTasks();
+  renderContent();
+  renderNotes();
+  updateOverview();
+}
+
+// ══ TAB SWITCHING ══
+function switchTab(name, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  const titles = { overview:'Overview', initiatives:'Initiatives', tasks:'Tasks', funnel:'Funnel Metrics', content:'Content / SEO', notes:'Notes & Ideas', review:'Weekly Review' };
+  const subs   = { overview:'Good morning — here\'s where things stand today.', initiatives:'Track and manage your strategic initiatives.', tasks:'Your open tasks, organised by timeline.', funnel:'Funnel performance and revenue metrics.', content:'Content pipeline and SEO tracker.', notes:'Your ideas, observations and quick captures.', review:'Weekly wins, blockers and next-week focus.' };
+  document.getElementById('pageTitle').textContent = titles[name] || name;
+  document.getElementById('pageSub').textContent   = subs[name] || '';
+}
+function switchTabByName(name) {
+  const items = document.querySelectorAll('.nav-item');
+  items.forEach(i => { if (i.textContent.trim().toLowerCase().includes(name.toLowerCase())) { switchTab(name, i); } });
+  switchTab(name, null);
+}
+
+// ══ OVERVIEW ══
+function updateOverview() {
+  const active = state.initiatives.filter(i => i.status === 'active').length;
+  const done   = state.tasks.filter(t => t.done).length;
+  const open   = state.tasks.filter(t => !t.done).length;
+  document.getElementById('ov-init-count').textContent   = active;
+  document.getElementById('ov-tasks-done').textContent   = done;
+  document.getElementById('ov-tasks-pct').textContent    = '↑ ' + open + ' open';
+  document.getElementById('ov-content-count').textContent = state.content.length;
+
+  // Mini init list
+  const ol = document.getElementById('ov-init-list');
+  const top = state.initiatives.filter(i => i.status === 'active').slice(0,3);
+  if (!top.length) { ol.innerHTML = '<div class="empty-state"><span class="es-icon">⟡</span><p>No active initiatives</p></div>'; }
+  else {
+    ol.innerHTML = top.map(i => `
+      <div style="display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--amber-bg);">
+        <span class="init-status-dot dot-active"></span>
+        <div style="flex:1;">
+          <div style="font-size:0.84rem;font-weight:600;color:var(--ink);">${i.name}</div>
+          <div class="progress-bar-bg" style="margin-top:5px;"><div class="progress-bar-fill" style="width:${i.progress}%"></div></div>
+        </div>
+        <span style="font-size:0.72rem;font-family:'DM Mono',monospace;color:var(--ink-lt);">${i.progress}%</span>
+      </div>`).join('');
+  }
+
+  // Mini task list
+  const tl = document.getElementById('ov-task-list');
+  const openTasks = state.tasks.filter(t => !t.done).slice(0,4);
+  if (!openTasks.length) { tl.innerHTML = '<div class="empty-state"><span class="es-icon">✓</span><p>All caught up!</p></div>'; }
+  else {
+    tl.innerHTML = openTasks.map(t => `
+      <div style="display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--amber-bg);">
+        <span class="tag tag-${t.priority==='high'?'amber':t.priority==='medium'?'blue':'gray'}">${t.priority}</span>
+        <div style="flex:1;font-size:0.83rem;color:var(--ink);">${t.title}</div>
+        <span style="font-size:0.7rem;color:var(--ink-lt);font-family:'DM Mono',monospace;">${formatDate(t.due)}</span>
+      </div>`).join('');
+  }
+}
+
+// ══ INITIATIVES ══
+function renderInitiatives() {
+  const el = document.getElementById('initiativeList');
+  if (!state.initiatives.length) {
+    el.innerHTML = '<div class="empty-state"><span class="es-icon">⟡</span><p>No initiatives yet — add your first one above.</p></div>';
+    return;
+  }
+  el.innerHTML = state.initiatives.map(i => {
+    const dotClass = { active:'dot-active', planned:'dot-planned', paused:'dot-paused', done:'dot-done' }[i.status] || 'dot-planned';
+    const pillarClass = { Revenue:'tag-amber', Product:'tag-blue', Marketing:'tag-purple', Operations:'tag-gray', SEO:'tag-green' }[i.pillar] || 'tag-gray';
+    return `
+    <div class="initiative-item">
+      <span class="init-status-dot ${dotClass}" style="margin-top:3px;"></span>
+      <div class="init-body">
+        <div class="init-title">${i.name}</div>
+        <div class="init-desc">${i.desc}</div>
+        <div class="init-meta">
+          <span class="tag ${pillarClass}">${i.pillar}</span>
+          <span class="tag tag-gray">${i.status.charAt(0).toUpperCase()+i.status.slice(1)}</span>
+        </div>
+        <div class="init-progress-wrap">
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${i.progress}%"></div></div>
+          <div class="init-pct">${i.progress}% complete</div>
+        </div>
+      </div>
+      <div class="init-impact">
+        <div class="impact-label">Impact</div>
+        <div class="impact-val">${i.impact || '—'}</div>
+      </div>
+      <div class="init-actions">
+        <button class="btn-icon" title="Edit" onclick="editInitiative(${i.id})">✎</button>
+        <button class="btn-icon" title="Delete" onclick="deleteInitiative(${i.id})" style="color:var(--red);">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+let editingInitId = null;
+function openInitModal(id) {
+  editingInitId = id || null;
+  if (id) {
+    const i = state.initiatives.find(x => x.id === id);
+    document.getElementById('initModalTitle').textContent = 'Edit Initiative';
+    document.getElementById('init-name').value     = i.name;
+    document.getElementById('init-desc').value     = i.desc;
+    document.getElementById('init-status').value   = i.status;
+    document.getElementById('init-pillar').value   = i.pillar;
+    document.getElementById('init-progress').value = i.progress;
+    document.getElementById('init-impact').value   = i.impact;
+  } else {
+    document.getElementById('initModalTitle').textContent = 'New Initiative';
+    document.getElementById('init-name').value = document.getElementById('init-desc').value =
+    document.getElementById('init-impact').value = '';
+    document.getElementById('init-progress').value = '0';
+    document.getElementById('init-status').value = 'planned';
+  }
+  document.getElementById('initModal').classList.add('open');
+}
+function editInitiative(id) { openInitModal(id); }
+function deleteInitiative(id) {
+  state.initiatives = state.initiatives.filter(i => i.id !== id);
+  renderInitiatives(); updateOverview();
+}
+function saveInitiative() {
+  const name = document.getElementById('init-name').value.trim();
+  if (!name) return;
+  const obj = {
+    id: editingInitId || Date.now(),
+    name,
+    desc:     document.getElementById('init-desc').value.trim(),
+    status:   document.getElementById('init-status').value,
+    pillar:   document.getElementById('init-pillar').value,
+    progress: parseInt(document.getElementById('init-progress').value) || 0,
+    impact:   document.getElementById('init-impact').value.trim(),
+  };
+  if (editingInitId) {
+    const idx = state.initiatives.findIndex(i => i.id === editingInitId);
+    state.initiatives[idx] = obj;
+  } else {
+    state.initiatives.unshift(obj);
+  }
+  closeModal('initModal');
+  renderInitiatives(); updateOverview();
+}
+
+// ══ TASKS ══
+function renderTasks() {
+  const now = new Date(); now.setHours(0,0,0,0);
+  const eow = new Date(now); eow.setDate(now.getDate() + (7 - now.getDay()));
+
+  const week     = state.tasks.filter(t => !t.done && new Date(t.due) <= eow);
+  const upcoming = state.tasks.filter(t => !t.done && new Date(t.due) > eow);
+  const done     = state.tasks.filter(t => t.done);
+
+  const renderList = (tasks, container) => {
+    const el = document.getElementById(container);
+    if (!tasks.length) { el.innerHTML = '<div class="empty-state" style="padding:16px 0;"><p>Nothing here</p></div>'; return; }
+    el.innerHTML = tasks.map(t => {
+      const d = new Date(t.due); d.setHours(12);
+      const overdue = !t.done && d < now;
+      const priorityClass = { high:'tag-amber', medium:'tag-blue', low:'tag-gray' }[t.priority] || 'tag-gray';
+      return `
+      <div class="task-item">
+        <div class="task-cb ${t.done?'checked':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</div>
+        <div class="task-body">
+          <div class="task-title ${t.done?'done':''}">${t.title}</div>
+          <div class="task-meta-row">
+            <span class="task-due ${overdue?'overdue':''}">${formatDate(t.due)}</span>
+            <span class="tag ${priorityClass} btn-sm">${t.priority}</span>
+            <span class="tag tag-gray btn-sm">${t.area}</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="btn-icon" onclick="deleteTask(${t.id})" style="color:var(--red);">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+  };
+
+  renderList(week, 'tasks-week');
+  renderList(upcoming, 'tasks-upcoming');
+  renderList(done, 'tasks-done');
+}
+
+function toggleTask(id) {
+  const t = state.tasks.find(x => x.id === id);
+  if (t) { t.done = !t.done; renderTasks(); updateOverview(); }
+}
+function deleteTask(id) {
+  state.tasks = state.tasks.filter(t => t.id !== id);
+  renderTasks(); updateOverview();
+}
+function openTaskModal() {
+  document.getElementById('task-title').value = '';
+  document.getElementById('task-due').value = new Date().toISOString().split('T')[0];
+  document.getElementById('taskModal').classList.add('open');
+}
+function saveTask() {
+  const title = document.getElementById('task-title').value.trim();
+  if (!title) return;
+  state.tasks.unshift({
+    id: Date.now(), title,
+    due:      document.getElementById('task-due').value,
+    priority: document.getElementById('task-priority').value,
+    area:     document.getElementById('task-area').value,
+    done:     false,
+  });
+  closeModal('taskModal');
+  renderTasks(); updateOverview();
+}
+
+// ══ CONTENT ══
+function renderContent() {
+  const body = document.getElementById('contentBody');
+  const liveCount = state.content.filter(c => c.status === 'live').length;
+  document.getElementById('content-live-count').textContent = liveCount;
+
+  if (!state.content.length) {
+    body.innerHTML = '<tr><td colspan="6"><div class="empty-state"><p>No content tracked yet.</p></div></td></tr>';
+    return;
+  }
+  const statusClass = { live:'sp-live', draft:'sp-draft', planned:'sp-planned', review:'sp-review' };
+  body.innerHTML = state.content.map(c => `
+    <tr>
+      <td style="font-weight:500;">${c.title}</td>
+      <td><span class="tag tag-gray">${c.type}</span></td>
+      <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--ink-mid);">${c.keyword}</td>
+      <td><span class="status-pill ${statusClass[c.status]||'sp-planned'}">${c.status.charAt(0).toUpperCase()+c.status.slice(1)}</span></td>
+      <td style="font-family:'DM Mono',monospace;font-size:0.78rem;">${c.traffic}</td>
+      <td><button class="btn-icon btn-sm" onclick="deleteContent(${c.id})" style="color:var(--red);">✕</button></td>
+    </tr>`).join('');
+}
+function openContentModal() {
+  ['cnt-title','cnt-keyword','cnt-traffic'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('contentModal').classList.add('open');
+}
+function saveContent() {
+  const title = document.getElementById('cnt-title').value.trim();
+  if (!title) return;
+  state.content.unshift({
+    id: Date.now(), title,
+    type:    document.getElementById('cnt-type').value,
+    status:  document.getElementById('cnt-status').value,
+    keyword: document.getElementById('cnt-keyword').value.trim() || '—',
+    traffic: document.getElementById('cnt-traffic').value.trim() || '—',
+  });
+  closeModal('contentModal');
+  renderContent(); updateOverview();
+}
+function deleteContent(id) {
+  state.content = state.content.filter(c => c.id !== id);
+  renderContent(); updateOverview();
+}
+
+// ══ NOTES ══
+function renderNotes() {
+  const grid = document.getElementById('noteGrid');
+  const addBtn = `<div class="note-add-card" onclick="openNoteModal()"><span>＋</span> Add note or idea</div>`;
+  grid.innerHTML = state.notes.map(n => `
+    <div class="note-card">
+      <div class="note-text">${n.text}</div>
+      <div class="note-date">${n.date}</div>
+      <button class="btn-icon btn-sm note-del" onclick="deleteNote(${n.id})" style="color:var(--red);">✕</button>
+    </div>`).join('') + addBtn;
+}
+function openNoteModal() {
+  document.getElementById('note-text').value = '';
+  document.getElementById('noteModal').classList.add('open');
+}
+function saveNote() {
+  const text = document.getElementById('note-text').value.trim();
+  if (!text) return;
+  const now = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+  state.notes.unshift({ id: Date.now(), text, date: now });
+  closeModal('noteModal');
+  renderNotes();
+}
+function deleteNote(id) {
+  state.notes = state.notes.filter(n => n.id !== id);
+  renderNotes();
+}
+
+// ══ WEEKLY REVIEW ══
+function addReviewItem(type) {
+  const text = prompt(type === 'win' ? 'Add a win:' : 'Add a blocker:');
+  if (!text) return;
+  const ul = document.getElementById(type === 'win' ? 'winsListEl' : 'blocksListEl');
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="ri-dot"></span> ${text}`;
+  ul.appendChild(li);
+}
+function clearReview() {
+  if (!confirm('Clear all wins and blockers for this week?')) return;
+  document.getElementById('winsListEl').innerHTML = '';
+  document.getElementById('blocksListEl').innerHTML = '';
+}
+function saveFocus() {
+  const val = document.getElementById('nextWeekFocus').value;
+  if (val) { const btn = document.querySelector('[onclick="saveFocus()"]'); btn.textContent='Saved ✓'; setTimeout(()=>btn.textContent='Save',1500); }
+}
+
+// ══ HELPERS ══
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function formatDate(str) {
+  if (!str) return '—';
+  const d = new Date(str + 'T12:00:00');
+  return d.toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+}
+
+// Close modal on bg click
+document.querySelectorAll('.modal-bg').forEach(bg => {
+  bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('open'); });
+});
+
+init();
+</script>
+</body>
+</html>
