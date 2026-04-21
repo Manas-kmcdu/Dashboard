@@ -7,46 +7,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --amber:     #B8712A;
-  --amber-dk:  #7A4A18;
-  --amber-lt:  #D4924A;
-  --amber-pale:#FBF0D8;
-  --amber-bg:  #FDF8F0;
-  --gold:      #E8A535;
-  --gold-dk:   #C98A1A;
-  --cream:     #FFFCF5;
-  --cream-bd:  #EAD9B8;
-  --ink:       #1E1206;
-  --ink-mid:   #5C3D1A;
-  --ink-lt:    #9C7A4A;
-  --white:     #FFFFFF;
-  --green:     #2A7A4E;
-  --green-bg:  #EAF5EE;
-  --red:       #B83232;
-  --red-bg:    #FDECEA;
-  --blue:      #1D5FAA;
-  --blue-bg:   #EEF3FF;
-  --purple:    #6B2FB5;
-  --purple-bg: #F2EEFF;
-  --teal:      #1A7A72;
-  --teal-bg:   #EAFAF8;
-  --shadow:    rgba(30,18,6,0.07);
-  --shadow-md: rgba(30,18,6,0.13);
-  --r:         10px;
-  --rsm:       7px;
-
-  /* vertical accent colors */
-  --v-aap:     #B8712A;
-  --v-gems:    #6B2FB5;
-  --v-horo:    #1D5FAA;
-  --v-puja:    #2A7A4E;
-  --v-occult:  #8A1A3A;
+  --amber:#B8712A;--amber-dk:#7A4A18;--amber-lt:#D4924A;--amber-pale:#FBF0D8;--amber-bg:#FDF8F0;
+  --gold:#E8A535;--gold-dk:#C98A1A;--cream:#FFFCF5;--cream-bd:#EAD9B8;
+  --ink:#1E1206;--ink-mid:#5C3D1A;--ink-lt:#9C7A4A;--white:#FFFFFF;
+  --green:#2A7A4E;--green-bg:#EAF5EE;--red:#B83232;--red-bg:#FDECEA;
+  --blue:#1D5FAA;--blue-bg:#EEF3FF;--purple:#6B2FB5;--purple-bg:#F2EEFF;
+  --shadow:rgba(30,18,6,0.07);--shadow-md:rgba(30,18,6,0.13);--r:10px;--rsm:7px;
+  --v-aap:#B8712A;--v-gems:#6B2FB5;--v-horo:#1D5FAA;--v-puja:#2A7A4E;--v-occult:#8A1A3A;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--amber-bg);color:var(--ink);min-height:100vh;overflow-x:hidden;font-size:14px;}
-
-/* ── SIDEBAR ── */
 .sb{position:fixed;top:0;left:0;bottom:0;width:228px;background:var(--amber-dk);display:flex;flex-direction:column;z-index:30;}
 .sb-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:6px;}
 .sb-badge{width:34px;height:34px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;}
@@ -59,67 +30,48 @@ body{font-family:'DM Sans',sans-serif;background:var(--amber-bg);color:var(--ink
 .nav-icon{font-size:14px;flex-shrink:0;width:16px;text-align:center;}
 .sb-foot{margin-top:auto;padding:14px 20px;border-top:1px solid rgba(255,255,255,0.07);}
 .sb-date{font-size:0.68rem;color:rgba(255,255,255,0.35);font-family:'DM Mono',monospace;}
-
-/* ── MAIN ── */
 .main{margin-left:228px;padding:28px 32px;min-height:100vh;}
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
 .topbar h1{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--ink);}
 .topbar-sub{font-size:0.78rem;color:var(--ink-lt);margin-top:2px;}
 .date-pill{background:var(--amber-pale);border:1px solid var(--cream-bd);border-radius:20px;padding:5px 13px;font-size:0.72rem;font-weight:500;color:var(--amber-dk);font-family:'DM Mono',monospace;}
-
-/* ── SECTIONS ── */
 .section{display:none;}
 .section.active{display:block;animation:fadeUp .3s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-
-/* ── VERTICAL TABS ── */
 .vtabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
 .vtab{padding:7px 16px;border-radius:20px;font-size:0.78rem;font-weight:600;cursor:pointer;border:1.5px solid var(--cream-bd);background:var(--white);color:var(--ink-mid);transition:all .17s;}
 .vtab:hover{border-color:var(--gold);color:var(--amber);}
 .vtab.active{color:var(--white);border-color:transparent;}
-.vtab[data-v="all"].active      {background:var(--amber-dk);}
-.vtab[data-v="aap"].active      {background:var(--v-aap);}
-.vtab[data-v="gems"].active     {background:var(--v-gems);}
-.vtab[data-v="horo"].active     {background:var(--v-horo);}
-.vtab[data-v="puja"].active     {background:var(--v-puja);}
-.vtab[data-v="occult"].active   {background:var(--v-occult);}
-
-/* ── CARDS ── */
+.vtab[data-v="all"].active{background:var(--amber-dk);}
+.vtab[data-v="aap"].active{background:var(--v-aap);}
+.vtab[data-v="gems"].active{background:var(--v-gems);}
+.vtab[data-v="horo"].active{background:var(--v-horo);}
+.vtab[data-v="puja"].active{background:var(--v-puja);}
+.vtab[data-v="occult"].active{background:var(--v-occult);}
 .card{background:var(--white);border:1px solid var(--cream-bd);border-radius:var(--r);padding:20px 22px;box-shadow:0 1px 6px var(--shadow);margin-bottom:18px;}
 .card-title{font-family:'Playfair Display',serif;font-size:0.93rem;font-weight:600;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
 .card-title-l{display:flex;align-items:center;gap:7px;}
-.cicon{font-size:15px;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
-
-/* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--rsm);font-family:'DM Sans',sans-serif;font-size:0.77rem;font-weight:600;cursor:pointer;border:none;transition:all .17s;}
 .btn-gold{background:linear-gradient(180deg,var(--gold),var(--gold-dk));color:var(--ink);box-shadow:0 2px 8px rgba(200,140,30,0.28);}
 .btn-gold:hover{opacity:.9;transform:translateY(-1px);}
 .btn-ghost{background:transparent;border:1px solid var(--cream-bd);color:var(--ink-mid);}
 .btn-ghost:hover{background:var(--amber-pale);border-color:var(--amber-lt);color:var(--amber-dk);}
-.btn-danger{background:var(--red-bg);color:var(--red);border:1px solid #f5c6c2;}
 .btn-sm{padding:4px 10px;font-size:0.71rem;}
-.btn-xs{padding:3px 8px;font-size:0.68rem;}
 .icon-btn{padding:4px 7px;font-size:13px;background:transparent;border:1px solid var(--cream-bd);color:var(--ink-lt);border-radius:var(--rsm);cursor:pointer;transition:all .15s;line-height:1;}
 .icon-btn:hover{background:var(--amber-pale);color:var(--amber-dk);border-color:var(--amber-lt);}
-
-/* ── OVERVIEW STATS ── */
 .stat-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;}
 .stat-box{background:var(--white);border:1px solid var(--cream-bd);border-radius:var(--r);padding:14px 16px;box-shadow:0 1px 5px var(--shadow);position:relative;overflow:hidden;}
 .stat-box::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
-.stat-box[data-v="aap"]::after   {background:var(--v-aap);}
-.stat-box[data-v="gems"]::after  {background:var(--v-gems);}
-.stat-box[data-v="horo"]::after  {background:var(--v-horo);}
-.stat-box[data-v="puja"]::after  {background:var(--v-puja);}
+.stat-box[data-v="aap"]::after{background:var(--v-aap);}
+.stat-box[data-v="gems"]::after{background:var(--v-gems);}
+.stat-box[data-v="horo"]::after{background:var(--v-horo);}
+.stat-box[data-v="puja"]::after{background:var(--v-puja);}
 .stat-box[data-v="occult"]::after{background:var(--v-occult);}
 .stat-label{font-size:0.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-lt);margin-bottom:4px;}
 .stat-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--ink);line-height:1;}
 .stat-sub{font-size:0.68rem;color:var(--ink-lt);margin-top:3px;}
-
-/* ── TASKS ── */
-.task-group{margin-bottom:18px;}
-.task-group-header{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-lt);padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--cream-bd);display:flex;align-items:center;justify-content:space-between;}
-.task-item{display:flex;align-items:flex-start;gap:10px;padding:9px 10px;border-radius:var(--rsm);transition:background .15s;cursor:default;}
+.task-item{display:flex;align-items:flex-start;gap:10px;padding:9px 10px;border-radius:var(--rsm);transition:background .15s;}
 .task-item:hover{background:var(--amber-bg);}
 .task-cb{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--cream-bd);background:var(--white);flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;transition:all .15s;}
 .task-cb.chk{background:var(--green);border-color:var(--green);color:var(--white);}
@@ -128,64 +80,71 @@ body{font-family:'DM Sans',sans-serif;background:var(--amber-bg);color:var(--ink
 .task-title.done{text-decoration:line-through;color:var(--ink-lt);}
 .task-meta{display:flex;gap:7px;margin-top:4px;flex-wrap:wrap;align-items:center;}
 .tag{font-size:0.64rem;font-weight:600;padding:2px 8px;border-radius:20px;letter-spacing:.03em;}
-.tag-aap   {background:#FBF0D8;color:var(--v-aap);}
-.tag-gems  {background:#F2EEFF;color:var(--v-gems);}
-.tag-horo  {background:#EEF3FF;color:var(--v-horo);}
-.tag-puja  {background:#EAF5EE;color:var(--v-puja);}
+.tag-aap{background:#FBF0D8;color:var(--v-aap);}
+.tag-gems{background:#F2EEFF;color:var(--v-gems);}
+.tag-horo{background:#EEF3FF;color:var(--v-horo);}
+.tag-puja{background:#EAF5EE;color:var(--v-puja);}
 .tag-occult{background:#FDEAEA;color:var(--v-occult);}
-.tag-high  {background:#FFF0E0;color:#B85000;}
-.tag-med   {background:#EEF3FF;color:var(--blue);}
-.tag-low   {background:#F1EDE4;color:var(--ink-mid);}
+.tag-high{background:#FFF0E0;color:#B85000;}
+.tag-med{background:#EEF3FF;color:var(--blue);}
+.tag-low{background:#F1EDE4;color:var(--ink-mid);}
 .due-label{font-size:0.68rem;color:var(--ink-lt);font-family:'DM Mono',monospace;}
 .due-label.late{color:var(--red);font-weight:600;}
 .task-actions{display:flex;gap:3px;opacity:0;transition:opacity .15s;}
 .task-item:hover .task-actions{opacity:1;}
-
-/* ── GOALS ── */
 .goal-item{background:var(--cream);border:1px solid var(--cream-bd);border-radius:var(--rsm);padding:14px 16px;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;transition:box-shadow .17s;}
 .goal-item:hover{box-shadow:0 2px 12px var(--shadow-md);}
 .goal-bullet{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
-.goal-body{}
 .goal-title{font-weight:600;font-size:0.88rem;color:var(--ink);margin-bottom:3px;}
 .goal-desc{font-size:0.78rem;color:var(--ink-mid);line-height:1.5;margin-bottom:7px;}
-.prog-wrap{margin-top:6px;}
 .prog-bg{background:var(--cream-bd);border-radius:3px;height:6px;overflow:hidden;}
 .prog-fill{height:100%;border-radius:3px;background:linear-gradient(to right,var(--gold),var(--amber));transition:width .4s;}
 .prog-txt{font-size:0.67rem;color:var(--ink-lt);margin-top:3px;font-family:'DM Mono',monospace;}
-.goal-right{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
-.goal-deadline{font-size:0.68rem;color:var(--ink-lt);font-family:'DM Mono',monospace;}
-
-/* ── IDEAS ── */
-.ideas-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
-.idea-count-badge{background:var(--amber-pale);border:1px solid var(--cream-bd);border-radius:20px;padding:4px 12px;font-size:0.72rem;color:var(--amber-dk);font-family:'DM Mono',monospace;}
-.generate-btn{background:linear-gradient(135deg,var(--amber-dk),var(--amber));color:var(--white);border:none;border-radius:var(--rsm);padding:9px 18px;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s;box-shadow:0 2px 10px rgba(122,74,24,0.25);}
-.generate-btn:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(122,74,24,0.36);}
-.generate-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
-.generate-btn .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:var(--white);border-radius:50%;animation:spin .65s linear infinite;display:none;}
-.generating .spinner{display:block;}
-.generating .gen-label{display:none;}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-.idea-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
-.idea-card{background:var(--white);border:1px solid var(--cream-bd);border-radius:var(--rsm);padding:14px 16px;box-shadow:0 1px 5px var(--shadow);position:relative;transition:all .18s;}
-.idea-card:hover{box-shadow:0 3px 16px var(--shadow-md);transform:translateY(-1px);}
-.idea-card.saved{border-color:var(--gold);background:var(--amber-pale);}
-.idea-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px;}
-.idea-text{font-size:0.84rem;font-weight:500;color:var(--ink);line-height:1.5;flex:1;}
-.idea-actions{display:flex;gap:4px;flex-shrink:0;}
-.idea-cat{font-size:0.68rem;color:var(--ink-lt);margin-top:4px;}
-.save-btn{font-size:12px;width:26px;height:26px;border-radius:50%;border:1px solid var(--cream-bd);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
-.save-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--ink);}
-.save-btn.saved-icon{background:var(--gold);border-color:var(--gold);}
-.add-task-btn{font-size:11px;padding:3px 8px;border-radius:20px;border:1px solid var(--cream-bd);background:transparent;cursor:pointer;color:var(--ink-lt);transition:all .15s;font-family:'DM Sans',sans-serif;font-weight:600;}
-.add-task-btn:hover{background:var(--green-bg);border-color:var(--green);color:var(--green);}
-
-/* loading skeleton */
-.skeleton{background:linear-gradient(90deg,var(--amber-pale) 25%,var(--cream-bd) 50%,var(--amber-pale) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:var(--rsm);height:14px;margin-bottom:6px;}
-@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
-.idea-skeleton{background:var(--white);border:1px solid var(--cream-bd);border-radius:var(--rsm);padding:14px 16px;}
-
-/* ── MODAL ── */
+/* IDEAS */
+.ideas-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+.istat{background:var(--white);border:1px solid var(--cream-bd);border-radius:var(--rsm);padding:12px 14px;}
+.istat-lbl{font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-lt);margin-bottom:3px;}
+.istat-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink);}
+.v-section{margin-bottom:28px;}
+.v-section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--cream-bd);}
+.v-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+.v-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--ink);}
+.v-count{font-size:0.7rem;color:var(--ink-lt);background:var(--amber-pale);padding:2px 8px;border-radius:20px;font-family:'DM Mono',monospace;}
+.idea-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.idea-card{background:var(--cream);border:1px solid var(--cream-bd);border-radius:var(--rsm);padding:13px 15px;display:flex;flex-direction:column;gap:8px;transition:all .17s;}
+.idea-card:hover{box-shadow:0 3px 14px var(--shadow-md);transform:translateY(-1px);border-color:var(--gold);}
+.idea-card.saved{background:var(--amber-pale);border-color:var(--gold);}
+.idea-text{font-size:0.82rem;color:var(--ink);line-height:1.55;flex:1;}
+.idea-footer{display:flex;align-items:center;gap:6px;}
+.cat-pill{font-size:0.62rem;font-weight:600;padding:2px 8px;border-radius:20px;}
+.idea-save-btn{margin-left:auto;width:24px;height:24px;border-radius:50%;border:1px solid var(--cream-bd);background:var(--white);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;color:var(--ink-lt);transition:all .15s;flex-shrink:0;}
+.idea-save-btn:hover,.idea-save-btn.saved{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+.idea-task-btn{font-size:0.65rem;font-weight:600;padding:2px 8px;border-radius:20px;border:1px solid var(--cream-bd);background:transparent;cursor:pointer;color:var(--ink-lt);transition:all .15s;font-family:'DM Sans',sans-serif;}
+.idea-task-btn:hover{background:var(--green-bg);border-color:var(--green);color:var(--green);}
+/* BRAINSTORM */
+.bs-pad{background:var(--white);border:1px solid var(--cream-bd);border-radius:var(--r);padding:20px 22px;box-shadow:0 1px 6px var(--shadow);margin-top:24px;}
+.bs-title{font-family:'Playfair Display',serif;font-size:0.93rem;font-weight:600;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.bs-vtabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.bs-vtab{padding:5px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--cream-bd);background:var(--white);color:var(--ink-mid);transition:all .15s;}
+.bs-vtab:hover{border-color:var(--gold);}
+.bs-vtab.active{color:var(--white);border-color:transparent;}
+.bs-vtab[data-v="aap"].active{background:var(--v-aap);}
+.bs-vtab[data-v="gems"].active{background:var(--v-gems);}
+.bs-vtab[data-v="horo"].active{background:var(--v-horo);}
+.bs-vtab[data-v="puja"].active{background:var(--v-puja);}
+.bs-vtab[data-v="occult"].active{background:var(--v-occult);}
+.bs-row{display:flex;gap:8px;margin-bottom:12px;}
+.bs-input{flex:1;background:var(--amber-bg);border:1px solid var(--cream-bd);border-radius:var(--rsm);padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:0.84rem;color:var(--ink);outline:none;transition:border-color .17s;resize:none;min-height:42px;}
+.bs-input:focus{border-color:var(--gold);background:var(--white);}
+.bs-add{padding:9px 16px;border-radius:var(--rsm);border:none;background:var(--amber-dk);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all .17s;white-space:nowrap;align-self:flex-start;}
+.bs-add:hover{background:var(--amber);}
+.bs-notes{display:flex;flex-direction:column;gap:6px;}
+.bs-note{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;background:var(--amber-bg);border:1px solid var(--cream-bd);border-radius:var(--rsm);font-size:0.82rem;color:var(--ink);line-height:1.5;}
+.bs-note-v{font-size:0.6rem;font-weight:600;padding:2px 7px;border-radius:20px;flex-shrink:0;margin-top:2px;}
+.bs-del{margin-left:auto;cursor:pointer;color:var(--ink-lt);font-size:13px;background:none;border:none;flex-shrink:0;padding:1px 4px;border-radius:3px;transition:all .15s;}
+.bs-del:hover{color:var(--red);background:var(--red-bg);}
+.bs-empty{text-align:center;padding:18px;color:var(--ink-lt);font-size:0.78rem;}
+/* MODAL */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(30,18,6,0.48);z-index:50;align-items:center;justify-content:center;}
 .modal-bg.open{display:flex;}
 .modal{background:var(--white);border-radius:var(--r);padding:26px 28px;width:500px;max-width:95vw;box-shadow:0 8px 48px rgba(30,18,6,0.22);animation:mIn .22s ease;}
@@ -198,118 +157,58 @@ body{font-family:'DM Sans',sans-serif;background:var(--amber-bg);color:var(--ink
 .ff textarea{resize:vertical;min-height:66px;}
 .ff-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
 .m-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;}
-
-/* ── DIVIDER ── */
-.divider{height:1px;background:var(--cream-bd);margin:14px 0;}
-
-/* ── EMPTY ── */
 .empty{text-align:center;padding:30px 16px;color:var(--ink-lt);}
 .empty .ei{font-size:28px;display:block;margin-bottom:8px;}
 .empty p{font-size:0.82rem;}
-
-/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:5px;}
-::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--cream-bd);border-radius:3px;}
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sb">
   <div class="sb-logo">
     <div class="sb-badge">A</div>
     <div class="sb-brand">Astro Arun Pandit</div>
-    <div class="sb-role">Strategy & Ops · Personal Dashboard</div>
+    <div class="sb-role">Strategy &amp; Ops · Personal Dashboard</div>
   </div>
-
   <div class="sb-sec">Workspace</div>
   <div class="nav-item active" onclick="gotoTab('overview',this)"><span class="nav-icon">◈</span> Overview</div>
   <div class="nav-item" onclick="gotoTab('tasks',this)"><span class="nav-icon">✓</span> Tasks</div>
   <div class="nav-item" onclick="gotoTab('goals',this)"><span class="nav-icon">◎</span> Goals</div>
-  <div class="nav-item" onclick="gotoTab('ideas',this)"><span class="nav-icon">✦</span> Ideas </div>
-
+  <div class="nav-item" onclick="gotoTab('ideas',this)"><span class="nav-icon">✦</span> Ideas &amp; Brainstorm</div>
   <div class="sb-sec">Verticals</div>
   <div class="nav-item" onclick="gotoTab('tasks',this);setVFilter('aap')"><span class="nav-icon" style="color:#D4924A;">●</span> Astro Arun Pandit</div>
   <div class="nav-item" onclick="gotoTab('tasks',this);setVFilter('gems')"><span class="nav-icon" style="color:#9B6BE0;">●</span> GemsMantra</div>
   <div class="nav-item" onclick="gotoTab('tasks',this);setVFilter('horo')"><span class="nav-icon" style="color:#4A8FD4;">●</span> Horocosmo</div>
   <div class="nav-item" onclick="gotoTab('tasks',this);setVFilter('puja')"><span class="nav-icon" style="color:#4AAA78;">●</span> Online Pooja</div>
   <div class="nav-item" onclick="gotoTab('tasks',this);setVFilter('occult')"><span class="nav-icon" style="color:#C05070;">●</span> Occult Gurukul</div>
-
-  <div class="sb-foot">
-    <div class="sb-date" id="sbDate"></div>
-  </div>
+  <div class="sb-foot"><div class="sb-date" id="sbDate"></div></div>
 </aside>
 
-<!-- MAIN -->
 <main class="main">
   <div class="topbar">
-    <div>
-      <h1 id="pageTitle">Overview</h1>
-      <div class="topbar-sub" id="pageSub">Your personal ops workspace across all 5 verticals.</div>
-    </div>
-    <div style="display:flex;gap:8px;align-items:center;">
-      <div class="date-pill" id="datePill"></div>
-    </div>
+    <div><h1 id="pageTitle">Overview</h1><div class="topbar-sub" id="pageSub">Your personal ops workspace across all 5 verticals.</div></div>
+    <div class="date-pill" id="datePill"></div>
   </div>
 
-  <!-- ════ OVERVIEW ════ -->
+  <!-- OVERVIEW -->
   <div class="section active" id="sec-overview">
     <div class="stat-strip">
-      <div class="stat-box" data-v="aap">
-        <div class="stat-label">Astro Arun Pandit</div>
-        <div class="stat-num" id="ov-aap">0</div>
-        <div class="stat-sub" id="ov-aap-s">tasks · 0 goals</div>
-      </div>
-      <div class="stat-box" data-v="gems">
-        <div class="stat-label">GemsMantra</div>
-        <div class="stat-num" id="ov-gems">0</div>
-        <div class="stat-sub" id="ov-gems-s">tasks · 0 goals</div>
-      </div>
-      <div class="stat-box" data-v="horo">
-        <div class="stat-label">Horocosmo</div>
-        <div class="stat-num" id="ov-horo">0</div>
-        <div class="stat-sub" id="ov-horo-s">tasks · 0 goals</div>
-      </div>
-      <div class="stat-box" data-v="puja">
-        <div class="stat-label">Online Pooja</div>
-        <div class="stat-num" id="ov-puja">0</div>
-        <div class="stat-sub" id="ov-puja-s">tasks · 0 goals</div>
-      </div>
-      <div class="stat-box" data-v="occult">
-        <div class="stat-label">Occult Gurukul</div>
-        <div class="stat-num" id="ov-occult">0</div>
-        <div class="stat-sub" id="ov-occult-s">tasks · 0 goals</div>
-      </div>
+      <div class="stat-box" data-v="aap"><div class="stat-label">Astro Arun Pandit</div><div class="stat-num" id="ov-aap">0</div><div class="stat-sub" id="ov-aap-s">tasks · 0 goals</div></div>
+      <div class="stat-box" data-v="gems"><div class="stat-label">GemsMantra</div><div class="stat-num" id="ov-gems">0</div><div class="stat-sub" id="ov-gems-s">tasks · 0 goals</div></div>
+      <div class="stat-box" data-v="horo"><div class="stat-label">Horocosmo</div><div class="stat-num" id="ov-horo">0</div><div class="stat-sub" id="ov-horo-s">tasks · 0 goals</div></div>
+      <div class="stat-box" data-v="puja"><div class="stat-label">Online Pooja</div><div class="stat-num" id="ov-puja">0</div><div class="stat-sub" id="ov-puja-s">tasks · 0 goals</div></div>
+      <div class="stat-box" data-v="occult"><div class="stat-label">Occult Gurukul</div><div class="stat-num" id="ov-occult">0</div><div class="stat-sub" id="ov-occult-s">tasks · 0 goals</div></div>
     </div>
-
     <div class="grid2">
-      <div class="card">
-        <div class="card-title">
-          <div class="card-title-l"><span class="cicon">✓</span> Open Tasks (by vertical)</div>
-          <button class="btn btn-ghost btn-sm" onclick="gotoTab('tasks',null)">All tasks →</button>
-        </div>
-        <div id="ov-tasks-preview"></div>
-      </div>
-      <div class="card">
-        <div class="card-title">
-          <div class="card-title-l"><span class="cicon">◎</span> Active Goals</div>
-          <button class="btn btn-ghost btn-sm" onclick="gotoTab('goals',null)">All goals →</button>
-        </div>
-        <div id="ov-goals-preview"></div>
-      </div>
+      <div class="card"><div class="card-title"><div class="card-title-l">✓ Open Tasks</div><button class="btn btn-ghost btn-sm" onclick="gotoTab('tasks',null)">All tasks →</button></div><div id="ov-tasks-preview"></div></div>
+      <div class="card"><div class="card-title"><div class="card-title-l">◎ Active Goals</div><button class="btn btn-ghost btn-sm" onclick="gotoTab('goals',null)">All goals →</button></div><div id="ov-goals-preview"></div></div>
     </div>
-
-    <div class="card">
-      <div class="card-title">
-        <div class="card-title-l"><span class="cicon">✦</span> Saved Ideas</div>
-        <button class="btn btn-ghost btn-sm" onclick="gotoTab('ideas',null)">Ideas →</button>
-      </div>
-      <div id="ov-ideas-preview"></div>
-    </div>
+    <div class="card"><div class="card-title"><div class="card-title-l">✦ Saved Ideas</div><button class="btn btn-ghost btn-sm" onclick="gotoTab('ideas',null)">Ideas board →</button></div><div id="ov-ideas-preview"></div></div>
   </div>
 
-  <!-- ════ TASKS ════ -->
+  <!-- TASKS -->
   <div class="section" id="sec-tasks">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
       <div class="vtabs" id="taskVtabs">
@@ -325,7 +224,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--amber-bg);color:var(--ink
     <div id="taskBoard"></div>
   </div>
 
-  <!-- ════ GOALS ════ -->
+  <!-- GOALS -->
   <div class="section" id="sec-goals">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
       <div class="vtabs" id="goalVtabs">
@@ -341,662 +240,350 @@ body{font-family:'DM Sans',sans-serif;background:var(--amber-bg);color:var(--ink
     <div id="goalBoard"></div>
   </div>
 
-  <!-- ════ IDEAS GENERATOR ════ -->
+  <!-- IDEAS & BRAINSTORM -->
   <div class="section" id="sec-ideas">
-    <div class="card" style="margin-bottom:18px;">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-        <div>
-          <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:4px;">AI Ideas</div>
-          <div style="font-size:0.8rem;color:var(--ink-lt);line-height:1.5;max-width:520px;">Generate 100+ strategic ideas for any vertical. Save ideas to your board or instantly convert them into tasks.</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
-          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
-            <select id="ideaVertical" style="border:1px solid var(--cream-bd);border-radius:var(--rsm);padding:7px 11px;font-family:'DM Sans',sans-serif;font-size:0.8rem;color:var(--ink);background:var(--amber-bg);outline:none;-webkit-appearance:none;">
-              <option value="all">All Verticals</option>
-              <option value="aap">Astro Arun Pandit</option>
-              <option value="gems">GemsMantra</option>
-              <option value="horo">Horocosmo</option>
-              <option value="puja">Online Pooja</option>
-              <option value="occult">Occult Gurukul</option>
-            </select>
-            <select id="ideaCategory" style="border:1px solid var(--cream-bd);border-radius:var(--rsm);padding:7px 11px;font-family:'DM Sans',sans-serif;font-size:0.8rem;color:var(--ink);background:var(--amber-bg);outline:none;-webkit-appearance:none;">
-              <option value="all">All Categories</option>
-              <option value="revenue">Revenue & Monetisation</option>
-              <option value="product">Product & Features</option>
-              <option value="marketing">Marketing & Growth</option>
-              <option value="content">Content & SEO</option>
-              <option value="ops">Operations & Process</option>
-              <option value="community">Community & Retention</option>
-            </select>
-          </div>
-          <button class="generate-btn" id="generateBtn" onclick="generateIdeas()">
-            <div class="spinner"></div>
-            <span class="gen-label">✦ Generate 100+ Ideas</span>
-          </button>
-        </div>
-      </div>
+    <div class="ideas-stats">
+      <div class="istat"><div class="istat-lbl">Total Ideas</div><div class="istat-num">50</div></div>
+      <div class="istat"><div class="istat-lbl">Saved</div><div class="istat-num" id="is-saved">0</div></div>
+      <div class="istat"><div class="istat-lbl">Converted to Tasks</div><div class="istat-num" id="is-tasks">0</div></div>
+      <div class="istat"><div class="istat-lbl">Brainstorm Notes</div><div class="istat-num" id="is-notes">0</div></div>
     </div>
-
-    <div class="ideas-toolbar">
-      <div class="idea-count-badge" id="ideaCountBadge">0 ideas generated</div>
-      <div id="ideaFilterTabs" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
-      <div style="margin-left:auto;display:flex;gap:6px;">
-        <button class="btn btn-ghost btn-sm" onclick="filterSaved()">⭐ Saved only</button>
-        <button class="btn btn-ghost btn-sm" onclick="clearIdeas()" id="clearIdeasBtn" style="display:none;">Clear</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div class="vtabs" id="ideaVtabs" style="margin-bottom:0;">
+        <div class="vtab active" data-v="all" onclick="setIdeaFilter('all')">All Verticals</div>
+        <div class="vtab" data-v="aap" onclick="setIdeaFilter('aap')">Astro Arun Pandit</div>
+        <div class="vtab" data-v="gems" onclick="setIdeaFilter('gems')">GemsMantra</div>
+        <div class="vtab" data-v="horo" onclick="setIdeaFilter('horo')">Horocosmo</div>
+        <div class="vtab" data-v="puja" onclick="setIdeaFilter('puja')">Online Pooja</div>
+        <div class="vtab" data-v="occult" onclick="setIdeaFilter('occult')">Occult Gurukul</div>
       </div>
+      <button class="btn btn-ghost btn-sm" id="savedFilterBtn" onclick="toggleSavedFilter()">☆ Saved only</button>
     </div>
-
-    <div id="ideaGrid" class="idea-grid"></div>
+    <div id="ideaBoard"></div>
+    <!-- Brainstorm Pad -->
+    <div class="bs-pad">
+      <div class="bs-title">✎ Brainstorm Pad <span style="font-size:0.7rem;font-weight:400;color:var(--ink-lt);font-family:'DM Sans',sans-serif;">— capture raw ideas as they come</span></div>
+      <div class="bs-vtabs" id="bsVtabs">
+        <div class="bs-vtab active" data-v="aap" onclick="setBsV('aap')">Astro Arun Pandit</div>
+        <div class="bs-vtab" data-v="gems" onclick="setBsV('gems')">GemsMantra</div>
+        <div class="bs-vtab" data-v="horo" onclick="setBsV('horo')">Horocosmo</div>
+        <div class="bs-vtab" data-v="puja" onclick="setBsV('puja')">Online Pooja</div>
+        <div class="bs-vtab" data-v="occult" onclick="setBsV('occult')">Occult Gurukul</div>
+      </div>
+      <div class="bs-row">
+        <textarea class="bs-input" id="bsInput" rows="2" placeholder="Type a raw idea, observation, or thought... (Enter to save)"></textarea>
+        <button class="bs-add" onclick="addBsNote()">+ Add</button>
+      </div>
+      <div class="bs-notes" id="bsNotes"></div>
+    </div>
   </div>
-
 </main>
 
-<!-- MODALS -->
+<!-- TASK MODAL -->
 <div class="modal-bg" id="taskModal">
   <div class="modal">
     <h3 id="taskModalTitle">New Task</h3>
     <div class="ff"><label>Task</label><input type="text" id="t-title" placeholder="What needs doing?"></div>
     <div class="ff-row">
-      <div class="ff"><label>Vertical</label>
-        <select id="t-vertical">
-          <option value="aap">Astro Arun Pandit</option>
-          <option value="gems">GemsMantra</option>
-          <option value="horo">Horocosmo</option>
-          <option value="puja">Online Pooja</option>
-          <option value="occult">Occult Gurukul</option>
-        </select>
-      </div>
-      <div class="ff"><label>Priority</label>
-        <select id="t-priority">
-          <option value="high">High</option>
-          <option value="med">Medium</option>
-          <option value="low">Low</option>
-        </select>
-      </div>
+      <div class="ff"><label>Vertical</label><select id="t-vertical"><option value="aap">Astro Arun Pandit</option><option value="gems">GemsMantra</option><option value="horo">Horocosmo</option><option value="puja">Online Pooja</option><option value="occult">Occult Gurukul</option></select></div>
+      <div class="ff"><label>Priority</label><select id="t-priority"><option value="high">High</option><option value="med">Medium</option><option value="low">Low</option></select></div>
     </div>
     <div class="ff-row">
       <div class="ff"><label>Due date</label><input type="date" id="t-due"></div>
-      <div class="ff"><label>Area</label>
-        <select id="t-area">
-          <option>Revenue</option><option>Product</option><option>Marketing</option>
-          <option>Content</option><option>Operations</option><option>Community</option><option>Other</option>
-        </select>
-      </div>
+      <div class="ff"><label>Area</label><select id="t-area"><option>Revenue</option><option>Product</option><option>Marketing</option><option>Content</option><option>Operations</option><option>Community</option><option>Other</option></select></div>
     </div>
     <div class="ff"><label>Notes (optional)</label><textarea id="t-notes" placeholder="Any context..."></textarea></div>
-    <div class="m-actions">
-      <button class="btn btn-ghost" onclick="closeModal('taskModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="saveTask()">Save Task</button>
-    </div>
+    <div class="m-actions"><button class="btn btn-ghost" onclick="closeModal('taskModal')">Cancel</button><button class="btn btn-gold" onclick="saveTask()">Save Task</button></div>
   </div>
 </div>
 
+<!-- GOAL MODAL -->
 <div class="modal-bg" id="goalModal">
   <div class="modal">
     <h3 id="goalModalTitle">New Goal</h3>
     <div class="ff"><label>Goal</label><input type="text" id="g-title" placeholder="What do you want to achieve?"></div>
     <div class="ff"><label>Description</label><textarea id="g-desc" placeholder="Why does this matter?"></textarea></div>
     <div class="ff-row">
-      <div class="ff"><label>Vertical</label>
-        <select id="g-vertical">
-          <option value="aap">Astro Arun Pandit</option>
-          <option value="gems">GemsMantra</option>
-          <option value="horo">Horocosmo</option>
-          <option value="puja">Online Pooja</option>
-          <option value="occult">Occult Gurukul</option>
-        </select>
-      </div>
+      <div class="ff"><label>Vertical</label><select id="g-vertical"><option value="aap">Astro Arun Pandit</option><option value="gems">GemsMantra</option><option value="horo">Horocosmo</option><option value="puja">Online Pooja</option><option value="occult">Occult Gurukul</option></select></div>
       <div class="ff"><label>Deadline</label><input type="date" id="g-deadline"></div>
     </div>
     <div class="ff-row">
       <div class="ff"><label>Progress (%)</label><input type="number" id="g-progress" min="0" max="100" value="0"></div>
-      <div class="ff"><label>Status</label>
-        <select id="g-status">
-          <option value="active">Active</option>
-          <option value="planned">Planned</option>
-          <option value="done">Done</option>
-          <option value="paused">Paused</option>
-        </select>
-      </div>
+      <div class="ff"><label>Status</label><select id="g-status"><option value="active">Active</option><option value="planned">Planned</option><option value="done">Done</option><option value="paused">Paused</option></select></div>
     </div>
-    <div class="m-actions">
-      <button class="btn btn-ghost" onclick="closeModal('goalModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="saveGoal()">Save Goal</button>
-    </div>
+    <div class="m-actions"><button class="btn btn-ghost" onclick="closeModal('goalModal')">Cancel</button><button class="btn btn-gold" onclick="saveGoal()">Save Goal</button></div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
-const S = {
-  tasks:      [],
-  goals:      [],
-  ideas:      [],       // generated + saved
-  savedIdeas: new Set(),
+const S = { tasks:[], goals:[], savedIdeas:new Set(), converted:0 };
+
+const VX = {
+  aap:   {label:'Astro Arun Pandit',color:'#B8712A',bg:'#FBF0D8',text:'#7A4A18',tc:'tag-aap'},
+  gems:  {label:'GemsMantra',       color:'#6B2FB5',bg:'#F2EEFF',text:'#3C1A7A',tc:'tag-gems'},
+  horo:  {label:'Horocosmo',        color:'#1D5FAA',bg:'#EEF3FF',text:'#0C3C72',tc:'tag-horo'},
+  puja:  {label:'Online Pooja',     color:'#2A7A4E',bg:'#EAF5EE',text:'#165430',tc:'tag-puja'},
+  occult:{label:'Occult Gurukul',   color:'#8A1A3A',bg:'#FDEAEA',text:'#5A1022',tc:'tag-occult'},
 };
 
-const VERTICALS = {
-  aap:    { label:'Astro Arun Pandit', color:'var(--v-aap)',    tagClass:'tag-aap' },
-  gems:   { label:'GemsMantra',        color:'var(--v-gems)',   tagClass:'tag-gems' },
-  horo:   { label:'Horocosmo',         color:'var(--v-horo)',   tagClass:'tag-horo' },
-  puja:   { label:'Online Pooja',      color:'var(--v-puja)',   tagClass:'tag-puja' },
-  occult: { label:'Occult Gurukul',    color:'var(--v-occult)', tagClass:'tag-occult' },
+const CS = {
+  Revenue:   {bg:'#FBF0D8',c:'#7A4A18'},Product:{bg:'#EEF3FF',c:'#0C3C72'},
+  Marketing: {bg:'#F2EEFF',c:'#3C1A7A'},Content:{bg:'#EAF5EE',c:'#165430'},
+  Operations:{bg:'#F1EDE4',c:'#5C3D1A'},Community:{bg:'#FDEAEA',c:'#5A1022'},
 };
 
-let taskFilter = 'all';
-let goalFilter = 'all';
-let ideaFilter = 'all';
-let showSavedOnly = false;
-let editingTaskId = null;
-let editingGoalId = null;
+const IDEAS=[
+  {id:1,v:'aap',cat:'Revenue',   text:'Launch a "Lal Kitab Remedies Subscription" — monthly personalised remedy kit with red threads, mustard oil, and a printed remedy card mailed to subscribers.'},
+  {id:2,v:'aap',cat:'Product',   text:'Create a Lal Kitab annual report product where users input their birth details and get a 20-page PDF with house analysis, planetary positions, and 12 key remedies for the year.'},
+  {id:3,v:'aap',cat:'Marketing', text:'Run a "Consult Arun Pandit Live" weekly Instagram or YouTube session — free 20-minute Q&A that funnels viewers into paid 1:1 bookings.'},
+  {id:4,v:'aap',cat:'Content',   text:'Publish a blog series "Why Lal Kitab Works Differently" — 12 articles targeting SEO keywords like "Lal Kitab remedy for debt" and "Lal Kitab for marriage delay."'},
+  {id:5,v:'aap',cat:'Community', text:'Build a loyalty tier system — bronze, silver, gold — where repeat consultation clients unlock priority booking, discounts on reports, and free remedy kits.'},
+  {id:6,v:'aap',cat:'Revenue',   text:'Develop a "Lal Kitab Compatibility Report" for couples — generate it from two birth dates and sell as a premium wedding season product.'},
+  {id:7,v:'aap',cat:'Operations',text:'Add a WhatsApp chatbot that handles appointment booking, sends birth-chart intake forms, and reminds clients 24 hours before their session.'},
+  {id:8,v:'aap',cat:'Marketing', text:'Partner with wedding planners to offer Lal Kitab muhurat consultations as an add-on service for couples planning their marriage dates.'},
+  {id:9,v:'aap',cat:'Product',   text:'Create a "30-Day Remedy Journal" digital product — a printable or app-based daily tracker for clients to follow prescribed remedies and note changes.'},
+  {id:10,v:'aap',cat:'Revenue',  text:'Offer a "Corporate Vastu + Lal Kitab Session" package for small business owners — positioned as a business growth consultation, priced at ₹5,000–₹15,000.'},
+  {id:11,v:'gems',cat:'Revenue',   text:'Launch a "Gemstone of the Month" subscription box — curated gemstone paired with a personalised mantra card, delivered monthly at ₹999–₹2,499 tiers.'},
+  {id:12,v:'gems',cat:'Product',   text:'Build a free "Which Gemstone Suits Me?" quiz — 5 birth-detail questions leading to a personalised recommendation and product page CTA with lab-certification badge.'},
+  {id:13,v:'gems',cat:'Content',   text:'Create short YouTube reels showing the lab certification process for each gemstone — builds trust and directly addresses the top buyer objection around authenticity.'},
+  {id:14,v:'gems',cat:'Marketing', text:'Partner with Occult Gurukul to bundle a gemstone with every advanced astrology course — students receive the stone relevant to their strongest planet.'},
+  {id:15,v:'gems',cat:'Revenue',   text:'Add a "Gemstone Activation Service" — after purchase, customers book a 15-minute video call where a pandit chants mantras to energise the stone before shipping.'},
+  {id:16,v:'gems',cat:'Operations',text:'Build a WhatsApp reorder reminder — 6 months after purchase, send customers a message asking if they want to upgrade or add a complementary gemstone.'},
+  {id:17,v:'gems',cat:'Revenue',   text:'Create a "Navratna Collection" premium gifting box targeting Diwali and wedding season — nine certified stones in a velvet case at ₹4,999–₹9,999.'},
+  {id:18,v:'gems',cat:'Content',   text:'Publish an SEO-rich "Ultimate Guide to Wearing Blue Sapphire" blog targeting high-intent search terms like "can I wear Neelam without testing."'},
+  {id:19,v:'gems',cat:'Marketing', text:'Launch a "NRI Gifting Program" — allow diaspora customers to buy gemstones online and have them shipped to family in India with a blessing card.'},
+  {id:20,v:'gems',cat:'Community', text:'Add user-generated review video submissions — incentivise customers with 10% off their next purchase to share a short video review with their gemstone results.'},
+  {id:21,v:'horo',cat:'Revenue',   text:'Launch a paid "Premium Daily Horoscope" email newsletter — deeper analysis, remedies, and lucky windows for the day, priced at ₹199/month.'},
+  {id:22,v:'horo',cat:'Product',   text:'Build a "Planetary Transit Alert" push notification feature — users set their sign and get notified when major transits like Saturn and Jupiter are about to affect them.'},
+  {id:23,v:'horo',cat:'Marketing', text:'Create a "Kundali Match Report" landing page targeted at matrimonial app users — offer a free basic match report with a paid detailed upgrade.'},
+  {id:24,v:'horo',cat:'Revenue',   text:'Develop a "Year Ahead Forecast" PDF product for each sun sign — released every January, sold for ₹299 each or ₹999 for all 12, ideal for gifting.'},
+  {id:25,v:'horo',cat:'Content',   text:'Write 12 SEO-optimised pillar articles — one per zodiac sign — covering personality, career, love, and remedies at 2,000+ words each.'},
+  {id:26,v:'horo',cat:'Product',   text:'Add a "Save My Horoscope" feature — logged-in users can save favourite horoscope readings and compare them month over month in a personal dashboard.'},
+  {id:27,v:'horo',cat:'Community', text:'Run a monthly "Astrology Prediction Contest" on Instagram — followers predict a news event using astrology; winners get a free consultation with Arun Pandit.'},
+  {id:28,v:'horo',cat:'Revenue',   text:'Integrate programmatic ads on the free daily horoscope pages — high-traffic content turns into passive ad revenue with minimal operational overhead.'},
+  {id:29,v:'horo',cat:'Content',   text:'Create a "Rahu-Ketu Transit" dedicated microsite — single-topic authority page targeting the surge in search interest around every nodal transit.'},
+  {id:30,v:'horo',cat:'Operations',text:'Build an email drip sequence for new sign-ups — 7-day "Understanding Your Birth Chart" mini-course delivered via email, ending with a CTA for a paid natal chart report.'},
+  {id:31,v:'puja',cat:'Revenue',   text:'Create a "Satyanarayan Puja for NRIs" package — fixed ₹2,100 price, live-streamed via Zoom with a verified pandit, prasad shipped internationally within 5 days.'},
+  {id:32,v:'puja',cat:'Revenue',   text:'Build a puja subscription for businesses — monthly Griha Shanti or Vyapar Vridhi Puja for shop owners and startups, billed quarterly at ₹3,500–₹7,000.'},
+  {id:33,v:'puja',cat:'Product',   text:'Add a "Puja Gift Card" feature — let users buy digital gift cards at ₹1,001 / ₹2,100 / ₹5,100 to send puja bookings as gifts for housewarmings and weddings.'},
+  {id:34,v:'puja',cat:'Content',   text:'Publish SEO content targeting "online pandit for [occasion] in [city]" — create dedicated landing pages for each major puja type and city combination.'},
+  {id:35,v:'puja',cat:'Operations',text:'Launch a "Pandit Verification Badge" programme — display a verified profile card for each pandit with video intro, qualifications, and rating from 50+ completions.'},
+  {id:36,v:'puja',cat:'Marketing', text:'Partner with housing societies and RWAs to offer bulk Navratri Celebration packages — one booking covers 50–200 households.'},
+  {id:37,v:'puja',cat:'Community', text:'Create a post-puja follow-up sequence — WhatsApp message 3 days later with puja photos, a digital prasad blessing card, and a prompt to rebook for the next occasion.'},
+  {id:38,v:'puja',cat:'Product',   text:'Add real-time puja livestream links to each booking — customers and family members worldwide can watch via a private link, significantly increasing perceived value.'},
+  {id:39,v:'puja',cat:'Product',   text:'Build a "Puja Calendar" feature on the platform — shows upcoming auspicious dates for each puja type with a one-tap booking CTA for each occasion.'},
+  {id:40,v:'puja',cat:'Marketing', text:'Develop a "Corporate Diwali Puja" package for offices — includes Lakshmi Puja, sweets hamper, and a digital blessing certificate — target HR managers in October.'},
+  {id:41,v:'occult',cat:'Revenue',   text:'Launch a "Lal Kitab Practitioner Certificate" course — 8-week cohort, ₹4,999 per student, with a printed certificate from Arun Pandit on completion.'},
+  {id:42,v:'occult',cat:'Content',   text:'Create a free YouTube series "Lal Kitab Decoded in 30 Days" — daily 5-minute lessons that build a funnel from free viewers into paid course students.'},
+  {id:43,v:'occult',cat:'Community', text:'Build a students-only community forum where learners submit birth chart analyses for peer review and occasional faculty feedback — increases course completion rates.'},
+  {id:44,v:'occult',cat:'Revenue',   text:'Develop a "Tarot for Beginners" short course at ₹999 — positioned as a gateway into the full occult curriculum for those new to esoteric study.'},
+  {id:45,v:'occult',cat:'Marketing', text:'Launch an affiliate programme — course graduates can refer new students and earn 15% commission, turning every student into a micro-distribution channel.'},
+  {id:46,v:'occult',cat:'Revenue',   text:'Host a monthly live "Chart Analysis Workshop" via Zoom — students submit charts in advance, Arun Pandit analyses 3 live on camera; available as a ₹499/month add-on.'},
+  {id:47,v:'occult',cat:'Product',   text:'Create a "Numerology Foundations" mini-course — 3 hours at ₹799 — as an upsell after students complete the astrology basics module.'},
+  {id:48,v:'occult',cat:'Content',   text:'Publish a "Careers in Astrology: How to Monetise Your Skills" guide — targets course completers who want to turn learning into income, with advanced courses as the CTA.'},
+  {id:49,v:'occult',cat:'Operations',text:'Build a student progress dashboard showing modules completed, quiz scores, and a readiness meter for the certification exam — gamifies learning and reduces dropout.'},
+  {id:50,v:'occult',cat:'Marketing', text:'Partner with spiritual retreat centres and yoga studios to offer Occult Gurukul as a recommended post-retreat learning resource with a co-branded discount code.'},
+];
 
-// ═══════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════
-function init() {
-  const now = new Date();
-  document.getElementById('sbDate').textContent   = now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
-  document.getElementById('datePill').textContent = now.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+let taskFilter='all', goalFilter='all', ideaFilter='all', savedOnly=false, bsV='aap', bsNotes=[], editTaskId=null, editGoalId=null;
+
+function init(){
+  const n=new Date();
+  document.getElementById('sbDate').textContent=n.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('datePill').textContent=n.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
   renderAll();
 }
+function renderAll(){renderTasks();renderGoals();renderIdeas();renderOverview();}
 
-function renderAll() {
-  renderTasks();
-  renderGoals();
-  renderIdeas();
-  renderOverview();
-}
-
-// ═══════════════════════════════════════════
-// NAV
-// ═══════════════════════════════════════════
-const TITLES = { overview:'Overview', tasks:'Tasks', goals:'Goals', ideas:'Ideas' };
-const SUBS   = {
+const TITLES={overview:'Overview',tasks:'Tasks',goals:'Goals',ideas:'Ideas & Brainstorm'};
+const SUBS={
   overview:'Your personal ops workspace across all 5 verticals.',
-  tasks:'Manage tasks across all verticals. Filter by vertical using the tabs.',
-  goals:'Set and track strategic goals for each vertical.',
-  ideas:'Generate 100+ AI-powered ideas for any vertical, then save or convert to tasks.',
+  tasks:'Manage tasks across all verticals.',goals:'Set and track strategic goals.',
+  ideas:'50 curated ideas across all 5 verticals — save, convert to tasks, or brainstorm freely below.'
 };
-function gotoTab(name, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('sec-' + name).classList.add('active');
-  if (el) el.classList.add('active');
-  document.getElementById('pageTitle').textContent = TITLES[name] || name;
-  document.getElementById('pageSub').textContent   = SUBS[name]   || '';
+function gotoTab(name,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  if(el)el.classList.add('active');
+  document.getElementById('pageTitle').textContent=TITLES[name]||name;
+  document.getElementById('pageSub').textContent=SUBS[name]||'';
 }
 
-// ═══════════════════════════════════════════
-// OVERVIEW
-// ═══════════════════════════════════════════
-function renderOverview() {
-  // stat boxes
-  Object.keys(VERTICALS).forEach(v => {
-    const tc = S.tasks.filter(t => t.vertical === v && !t.done).length;
-    const gc = S.goals.filter(g => g.vertical === v && g.status === 'active').length;
-    document.getElementById('ov-' + v).textContent = tc;
-    document.getElementById('ov-' + v + '-s').textContent = `open tasks · ${gc} goals`;
+function renderOverview(){
+  Object.keys(VX).forEach(v=>{
+    const tc=S.tasks.filter(t=>t.vertical===v&&!t.done).length;
+    const gc=S.goals.filter(g=>g.vertical===v&&g.status==='active').length;
+    document.getElementById('ov-'+v).textContent=tc;
+    document.getElementById('ov-'+v+'-s').textContent=`open tasks · ${gc} goals`;
   });
-
-  // tasks preview
-  const tp = document.getElementById('ov-tasks-preview');
-  const open = S.tasks.filter(t => !t.done).slice(0, 6);
-  if (!open.length) { tp.innerHTML = '<div class="empty"><p>No open tasks yet</p></div>'; }
-  else tp.innerHTML = open.map(t => `
-    <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--amber-bg);">
-      <span class="tag ${VERTICALS[t.vertical].tagClass}">${VERTICALS[t.vertical].label}</span>
-      <span style="flex:1;font-size:0.83rem;color:var(--ink);">${t.title}</span>
-      <span class="tag tag-${t.priority==='high'?'high':t.priority==='med'?'med':'low'}">${t.priority}</span>
-    </div>`).join('');
-
-  // goals preview
-  const gp = document.getElementById('ov-goals-preview');
-  const activeGoals = S.goals.filter(g => g.status === 'active').slice(0, 4);
-  if (!activeGoals.length) { gp.innerHTML = '<div class="empty"><p>No active goals yet</p></div>'; }
-  else gp.innerHTML = activeGoals.map(g => `
-    <div style="padding:7px 0;border-bottom:1px solid var(--amber-bg);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
-        <span style="font-size:0.83rem;font-weight:600;color:var(--ink);">${g.title}</span>
-        <span style="font-size:0.68rem;font-family:'DM Mono',monospace;color:var(--ink-lt);">${g.progress}%</span>
-      </div>
-      <div class="prog-bg"><div class="prog-fill" style="width:${g.progress}%"></div></div>
-    </div>`).join('');
-
-  // saved ideas preview
-  const ip = document.getElementById('ov-ideas-preview');
-  const saved = S.ideas.filter(i => S.savedIdeas.has(i.id)).slice(0, 6);
-  if (!saved.length) { ip.innerHTML = '<div class="empty"><p>No saved ideas yet - use the Ideas Generator →</p></div>'; }
-  else ip.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:8px;">` +
-    saved.map(i => `<div style="background:var(--amber-pale);border:1px solid var(--cream-bd);border-radius:20px;padding:4px 12px;font-size:0.78rem;color:var(--amber-dk);">⭐ ${i.text.substring(0,60)}${i.text.length>60?'…':''}</div>`).join('') + `</div>`;
+  const tp=document.getElementById('ov-tasks-preview');
+  const open=S.tasks.filter(t=>!t.done).slice(0,6);
+  tp.innerHTML=open.length?open.map(t=>`<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--amber-bg);"><span class="tag ${VX[t.vertical].tc}">${VX[t.vertical].label}</span><span style="flex:1;font-size:0.83rem;">${t.title}</span><span class="tag tag-${t.priority==='high'?'high':t.priority==='med'?'med':'low'}">${t.priority}</span></div>`).join(''):'<div class="empty"><p>No open tasks yet</p></div>';
+  const gp=document.getElementById('ov-goals-preview');
+  const ag=S.goals.filter(g=>g.status==='active').slice(0,4);
+  gp.innerHTML=ag.length?ag.map(g=>`<div style="padding:7px 0;border-bottom:1px solid var(--amber-bg);"><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:0.83rem;font-weight:600;">${g.title}</span><span style="font-size:0.68rem;font-family:'DM Mono',monospace;color:var(--ink-lt);">${g.progress}%</span></div><div class="prog-bg"><div class="prog-fill" style="width:${g.progress}%"></div></div></div>`).join(''):'<div class="empty"><p>No active goals yet</p></div>';
+  const ip=document.getElementById('ov-ideas-preview');
+  const sv=IDEAS.filter(i=>S.savedIdeas.has(i.id)).slice(0,8);
+  ip.innerHTML=sv.length?`<div style="display:flex;flex-wrap:wrap;gap:7px;">${sv.map(i=>`<div style="background:var(--amber-pale);border:1px solid var(--cream-bd);border-radius:20px;padding:4px 12px;font-size:0.75rem;color:var(--amber-dk);">★ ${i.text.substring(0,55)}${i.text.length>55?'…':''}</div>`).join('')}</div>`:'<div class="empty"><p>No saved ideas yet — visit the Ideas board to star favourites.</p></div>';
 }
 
-// ═══════════════════════════════════════════
 // TASKS
-// ═══════════════════════════════════════════
-function setVFilter(v) {
-  taskFilter = v;
-  document.querySelectorAll('#taskVtabs .vtab').forEach(t => {
-    t.classList.toggle('active', t.dataset.v === v);
-  });
-  renderTasks();
-}
-
-function renderTasks() {
-  const el = document.getElementById('taskBoard');
-  const now = new Date(); now.setHours(0,0,0,0);
-
-  let tasks = taskFilter === 'all' ? S.tasks : S.tasks.filter(t => t.vertical === taskFilter);
-
-  const open   = tasks.filter(t => !t.done);
-  const done   = tasks.filter(t => t.done);
-
-  if (!tasks.length) {
-    el.innerHTML = `<div class="card"><div class="empty"><span class="ei">✓</span><p>No tasks yet for this vertical.<br>Add your first task or generate ideas above.</p></div></div>`;
-    return;
-  }
-
-  const renderItem = t => {
-    const due = t.due ? new Date(t.due + 'T12:00:00') : null;
-    const late = due && !t.done && due < now;
-    const dueFmt = due ? due.toLocaleDateString('en-IN',{day:'numeric',month:'short'}) : '';
-    return `
-    <div class="task-item">
-      <div class="task-cb ${t.done?'chk':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</div>
-      <div class="task-body">
-        <div class="task-title ${t.done?'done':''}">${t.title}</div>
-        <div class="task-meta">
-          <span class="tag ${VERTICALS[t.vertical].tagClass}">${VERTICALS[t.vertical].label}</span>
-          <span class="tag tag-${t.priority==='high'?'high':t.priority==='med'?'med':'low'}">${t.priority}</span>
-          <span class="tag" style="background:#F1EDE4;color:var(--ink-mid);">${t.area}</span>
-          ${due ? `<span class="due-label ${late?'late':''}">${late?'⚠ ':''} ${dueFmt}</span>` : ''}
-        </div>
-        ${t.notes ? `<div style="font-size:0.75rem;color:var(--ink-lt);margin-top:4px;">${t.notes}</div>` : ''}
-      </div>
-      <div class="task-actions">
-        <button class="icon-btn" onclick="editTask(${t.id})" title="Edit">✎</button>
-        <button class="icon-btn" onclick="deleteTask(${t.id})" style="color:var(--red);" title="Delete">✕</button>
-      </div>
-    </div>`;
+function setVFilter(v){taskFilter=v;document.querySelectorAll('#taskVtabs .vtab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));renderTasks();}
+function renderTasks(){
+  const el=document.getElementById('taskBoard');
+  const now=new Date();now.setHours(0,0,0,0);
+  let tasks=taskFilter==='all'?S.tasks:S.tasks.filter(t=>t.vertical===taskFilter);
+  const open=tasks.filter(t=>!t.done),done=tasks.filter(t=>t.done);
+  if(!tasks.length){el.innerHTML=`<div class="card"><div class="empty"><span class="ei">✓</span><p>No tasks yet. Add your first task.</p></div></div>`;return;}
+  const ri=t=>{
+    const due=t.due?new Date(t.due+'T12:00:00'):null;
+    const late=due&&!t.done&&due<now;
+    return `<div class="task-item"><div class="task-cb ${t.done?'chk':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</div><div class="task-body"><div class="task-title ${t.done?'done':''}">${t.title}</div><div class="task-meta"><span class="tag ${VX[t.vertical].tc}">${VX[t.vertical].label}</span><span class="tag tag-${t.priority==='high'?'high':t.priority==='med'?'med':'low'}">${t.priority}</span><span class="tag" style="background:#F1EDE4;color:var(--ink-mid);">${t.area}</span>${due?`<span class="due-label ${late?'late':''}">${late?'⚠ ':''}${due.toLocaleDateString('en-IN',{day:'numeric',month:'short'})}</span>`:''}</div>${t.notes?`<div style="font-size:0.75rem;color:var(--ink-lt);margin-top:4px;">${t.notes}</div>`:''}</div><div class="task-actions"><button class="icon-btn" onclick="editTask(${t.id})">✎</button><button class="icon-btn" onclick="deleteTask(${t.id})" style="color:var(--red);">✕</button></div></div>`;
   };
-
-  let html = '';
-  if (open.length) {
-    html += `<div class="card"><div class="task-group-header"><span>Open (${open.length})</span></div>`;
-    // Sort: high → med → low, then by due
-    const sorted = [...open].sort((a,b) => {
-      const po = {high:0,med:1,low:2};
-      return (po[a.priority]||1) - (po[b.priority]||1);
-    });
-    html += sorted.map(renderItem).join('') + '</div>';
-  }
-  if (done.length) {
-    html += `<div class="card"><div class="task-group-header"><span>Completed (${done.length})</span><button class="btn btn-sm btn-ghost" onclick="clearDone()">Clear done</button></div>`;
-    html += done.map(renderItem).join('') + '</div>';
-  }
-  el.innerHTML = html;
+  let html='';
+  if(open.length){const s=[...open].sort((a,b)=>({high:0,med:1,low:2}[a.priority]||1)-({high:0,med:1,low:2}[b.priority]||1));html+=`<div class="card"><div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-lt);padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--cream-bd);">Open (${open.length})</div>${s.map(ri).join('')}</div>`;}
+  if(done.length){html+=`<div class="card"><div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-lt);padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--cream-bd);display:flex;align-items:center;justify-content:space-between;"><span>Completed (${done.length})</span><button class="btn btn-sm btn-ghost" onclick="clearDone()">Clear done</button></div>${done.map(ri).join('')}</div>`;}
+  el.innerHTML=html;
 }
-
-let editingT = null;
-function openTaskModal(prefill) {
-  editingT = null; editingTaskId = null;
-  document.getElementById('taskModalTitle').textContent = 'New Task';
-  document.getElementById('t-title').value = prefill || '';
-  document.getElementById('t-due').value = '';
-  document.getElementById('t-notes').value = '';
-  document.getElementById('t-priority').value = 'high';
-  document.getElementById('t-area').value = 'Revenue';
+function openTaskModal(pre,vert){
+  editTaskId=null;
+  document.getElementById('taskModalTitle').textContent='New Task';
+  document.getElementById('t-title').value=pre||'';
+  document.getElementById('t-vertical').value=vert||'aap';
+  document.getElementById('t-priority').value='med';
+  document.getElementById('t-area').value='Revenue';
+  document.getElementById('t-due').value='';
+  document.getElementById('t-notes').value='';
   document.getElementById('taskModal').classList.add('open');
 }
-function editTask(id) {
-  const t = S.tasks.find(x => x.id === id);
-  if (!t) return;
-  editingTaskId = id;
-  document.getElementById('taskModalTitle').textContent = 'Edit Task';
-  document.getElementById('t-title').value    = t.title;
-  document.getElementById('t-vertical').value = t.vertical;
-  document.getElementById('t-priority').value = t.priority;
-  document.getElementById('t-due').value      = t.due || '';
-  document.getElementById('t-area').value     = t.area;
-  document.getElementById('t-notes').value    = t.notes || '';
+function editTask(id){
+  const t=S.tasks.find(x=>x.id===id);if(!t)return;
+  editTaskId=id;
+  document.getElementById('taskModalTitle').textContent='Edit Task';
+  document.getElementById('t-title').value=t.title;document.getElementById('t-vertical').value=t.vertical;
+  document.getElementById('t-priority').value=t.priority;document.getElementById('t-due').value=t.due||'';
+  document.getElementById('t-area').value=t.area;document.getElementById('t-notes').value=t.notes||'';
   document.getElementById('taskModal').classList.add('open');
 }
-function saveTask() {
-  const title = document.getElementById('t-title').value.trim();
-  if (!title) return;
-  const obj = {
-    id:       editingTaskId || Date.now(),
-    title,
-    vertical: document.getElementById('t-vertical').value,
-    priority: document.getElementById('t-priority').value,
-    due:      document.getElementById('t-due').value,
-    area:     document.getElementById('t-area').value,
-    notes:    document.getElementById('t-notes').value.trim(),
-    done:     false,
-  };
-  if (editingTaskId) {
-    const idx = S.tasks.findIndex(t => t.id === editingTaskId);
-    obj.done = S.tasks[idx].done;
-    S.tasks[idx] = obj;
-    editingTaskId = null;
-  } else {
-    S.tasks.unshift(obj);
-  }
-  closeModal('taskModal');
-  renderTasks(); renderOverview();
+function saveTask(){
+  const title=document.getElementById('t-title').value.trim();if(!title)return;
+  const obj={id:editTaskId||Date.now(),title,vertical:document.getElementById('t-vertical').value,priority:document.getElementById('t-priority').value,due:document.getElementById('t-due').value,area:document.getElementById('t-area').value,notes:document.getElementById('t-notes').value.trim(),done:false};
+  if(editTaskId){const i=S.tasks.findIndex(t=>t.id===editTaskId);obj.done=S.tasks[i].done;S.tasks[i]=obj;editTaskId=null;}else{S.tasks.unshift(obj);}
+  closeModal('taskModal');renderTasks();renderOverview();
 }
-function toggleTask(id) {
-  const t = S.tasks.find(x => x.id === id);
-  if (t) { t.done = !t.done; renderTasks(); renderOverview(); }
-}
-function deleteTask(id) {
-  S.tasks = S.tasks.filter(t => t.id !== id);
-  renderTasks(); renderOverview();
-}
-function clearDone() {
-  S.tasks = S.tasks.filter(t => !t.done || (taskFilter !== 'all' && t.vertical !== taskFilter));
-  renderTasks(); renderOverview();
-}
+function toggleTask(id){const t=S.tasks.find(x=>x.id===id);if(t){t.done=!t.done;renderTasks();renderOverview();}}
+function deleteTask(id){S.tasks=S.tasks.filter(t=>t.id!==id);renderTasks();renderOverview();}
+function clearDone(){S.tasks=S.tasks.filter(t=>!t.done);renderTasks();renderOverview();}
 
-// ═══════════════════════════════════════════
 // GOALS
-// ═══════════════════════════════════════════
-function setGFilter(v) {
-  goalFilter = v;
-  document.querySelectorAll('#goalVtabs .vtab').forEach(t => t.classList.toggle('active', t.dataset.v === v));
-  renderGoals();
+function setGFilter(v){goalFilter=v;document.querySelectorAll('#goalVtabs .vtab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));renderGoals();}
+const GC={active:'var(--green)',planned:'var(--gold)',done:'var(--blue)',paused:'var(--ink-lt)'};
+function renderGoals(){
+  const el=document.getElementById('goalBoard');
+  let goals=goalFilter==='all'?S.goals:S.goals.filter(g=>g.vertical===goalFilter);
+  if(!goals.length){el.innerHTML=`<div class="card"><div class="empty"><span class="ei">◎</span><p>No goals yet.</p></div></div>`;return;}
+  el.innerHTML=`<div class="card">${goals.map(g=>`<div class="goal-item"><div class="goal-bullet" style="background:${GC[g.status]||'var(--gold)'}"></div><div><div class="goal-title">${g.title}</div>${g.desc?`<div class="goal-desc">${g.desc}</div>`:''}<div style="display:flex;gap:7px;margin-bottom:6px;flex-wrap:wrap;"><span class="tag ${VX[g.vertical].tc}">${VX[g.vertical].label}</span><span class="tag" style="background:#F1EDE4;color:var(--ink-mid);">${g.status.charAt(0).toUpperCase()+g.status.slice(1)}</span>${g.deadline?`<span style="font-size:0.68rem;color:var(--ink-lt);font-family:'DM Mono',monospace;">by ${fmtDate(g.deadline)}</span>`:''}</div><div class="prog-bg"><div class="prog-fill" style="width:${g.progress}%"></div></div><div class="prog-txt">${g.progress}% complete</div></div><div style="display:flex;flex-direction:column;gap:4px;"><button class="icon-btn" onclick="editGoal(${g.id})">✎</button><button class="icon-btn" onclick="nudgeProg(${g.id})" title="+10%">+</button><button class="icon-btn" onclick="deleteGoal(${g.id})" style="color:var(--red);">✕</button></div></div>`).join('')}</div>`;
 }
-
-const GOAL_COLORS = { active: 'var(--green)', planned: 'var(--gold)', done: 'var(--blue)', paused: 'var(--ink-lt)' };
-
-function renderGoals() {
-  const el = document.getElementById('goalBoard');
-  let goals = goalFilter === 'all' ? S.goals : S.goals.filter(g => g.vertical === goalFilter);
-  if (!goals.length) {
-    el.innerHTML = `<div class="card"><div class="empty"><span class="ei">◎</span><p>No goals yet for this vertical.</p></div></div>`;
-    return;
-  }
-  el.innerHTML = `<div class="card">` + goals.map(g => `
-    <div class="goal-item">
-      <div class="goal-bullet" style="background:${GOAL_COLORS[g.status]||'var(--gold)'}"></div>
-      <div class="goal-body">
-        <div class="goal-title">${g.title}</div>
-        ${g.desc ? `<div class="goal-desc">${g.desc}</div>` : ''}
-        <div style="display:flex;gap:7px;margin-bottom:6px;flex-wrap:wrap;">
-          <span class="tag ${VERTICALS[g.vertical].tagClass}">${VERTICALS[g.vertical].label}</span>
-          <span class="tag" style="background:#F1EDE4;color:var(--ink-mid);">${g.status.charAt(0).toUpperCase()+g.status.slice(1)}</span>
-          ${g.deadline ? `<span style="font-size:0.68rem;color:var(--ink-lt);font-family:'DM Mono',monospace;">by ${formatDate(g.deadline)}</span>` : ''}
-        </div>
-        <div class="prog-wrap">
-          <div class="prog-bg"><div class="prog-fill" style="width:${g.progress}%"></div></div>
-          <div class="prog-txt">${g.progress}% complete</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:4px;">
-        <button class="icon-btn" onclick="editGoal(${g.id})">✎</button>
-        <button class="icon-btn" onclick="nudgeProgress(${g.id})" title="+10%">+</button>
-        <button class="icon-btn" onclick="deleteGoal(${g.id})" style="color:var(--red);">✕</button>
-      </div>
-    </div>`).join('') + `</div>`;
-}
-
-let editingGoalId2 = null;
-function openGoalModal() {
-  editingGoalId2 = null;
-  document.getElementById('goalModalTitle').textContent = 'New Goal';
-  ['g-title','g-desc'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('g-progress').value = '0';
-  document.getElementById('g-status').value   = 'active';
-  document.getElementById('g-deadline').value = '';
+function openGoalModal(){
+  editGoalId=null;document.getElementById('goalModalTitle').textContent='New Goal';
+  ['g-title','g-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('g-progress').value='0';document.getElementById('g-status').value='active';document.getElementById('g-deadline').value='';
   document.getElementById('goalModal').classList.add('open');
 }
-function editGoal(id) {
-  const g = S.goals.find(x => x.id === id);
-  if (!g) return;
-  editingGoalId2 = id;
-  document.getElementById('goalModalTitle').textContent = 'Edit Goal';
-  document.getElementById('g-title').value    = g.title;
-  document.getElementById('g-desc').value     = g.desc || '';
-  document.getElementById('g-vertical').value = g.vertical;
-  document.getElementById('g-deadline').value = g.deadline || '';
-  document.getElementById('g-progress').value = g.progress;
-  document.getElementById('g-status').value   = g.status;
+function editGoal(id){
+  const g=S.goals.find(x=>x.id===id);if(!g)return;editGoalId=id;
+  document.getElementById('goalModalTitle').textContent='Edit Goal';
+  document.getElementById('g-title').value=g.title;document.getElementById('g-desc').value=g.desc||'';
+  document.getElementById('g-vertical').value=g.vertical;document.getElementById('g-deadline').value=g.deadline||'';
+  document.getElementById('g-progress').value=g.progress;document.getElementById('g-status').value=g.status;
   document.getElementById('goalModal').classList.add('open');
 }
-function saveGoal() {
-  const title = document.getElementById('g-title').value.trim();
-  if (!title) return;
-  const obj = {
-    id:       editingGoalId2 || Date.now(),
-    title,
-    desc:     document.getElementById('g-desc').value.trim(),
-    vertical: document.getElementById('g-vertical').value,
-    deadline: document.getElementById('g-deadline').value,
-    progress: parseInt(document.getElementById('g-progress').value) || 0,
-    status:   document.getElementById('g-status').value,
-  };
-  if (editingGoalId2) {
-    const idx = S.goals.findIndex(g => g.id === editingGoalId2);
-    S.goals[idx] = obj; editingGoalId2 = null;
-  } else {
-    S.goals.unshift(obj);
+function saveGoal(){
+  const title=document.getElementById('g-title').value.trim();if(!title)return;
+  const obj={id:editGoalId||Date.now(),title,desc:document.getElementById('g-desc').value.trim(),vertical:document.getElementById('g-vertical').value,deadline:document.getElementById('g-deadline').value,progress:parseInt(document.getElementById('g-progress').value)||0,status:document.getElementById('g-status').value};
+  if(editGoalId){const i=S.goals.findIndex(g=>g.id===editGoalId);S.goals[i]=obj;editGoalId=null;}else{S.goals.unshift(obj);}
+  closeModal('goalModal');renderGoals();renderOverview();
+}
+function nudgeProg(id){const g=S.goals.find(x=>x.id===id);if(g){g.progress=Math.min(100,g.progress+10);renderGoals();renderOverview();}}
+function deleteGoal(id){S.goals=S.goals.filter(g=>g.id!==id);renderGoals();renderOverview();}
+
+// IDEAS
+function setIdeaFilter(v){
+  ideaFilter=v;
+  document.querySelectorAll('#ideaVtabs .vtab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));
+  renderIdeas();
+}
+function toggleSavedFilter(){
+  savedOnly=!savedOnly;
+  const btn=document.getElementById('savedFilterBtn');
+  btn.textContent=savedOnly?'★ All ideas':'☆ Saved only';
+  btn.style.background=savedOnly?'var(--amber-pale)':'';
+  btn.style.borderColor=savedOnly?'var(--gold)':'';
+  renderIdeas();
+}
+function toggleSaveIdea(id){
+  if(S.savedIdeas.has(id))S.savedIdeas.delete(id);else S.savedIdeas.add(id);
+  updateIdeaStats();renderOverview();
+  const card=document.getElementById('idea-'+id);
+  if(card){
+    const sv=S.savedIdeas.has(id);
+    card.classList.toggle('saved',sv);
+    const btn=card.querySelector('.idea-save-btn');
+    if(btn){btn.textContent=sv?'★':'☆';btn.classList.toggle('saved',sv);}
   }
-  closeModal('goalModal');
-  renderGoals(); renderOverview();
+  if(savedOnly)renderIdeas();
 }
-function nudgeProgress(id) {
-  const g = S.goals.find(x => x.id === id);
-  if (g) { g.progress = Math.min(100, g.progress + 10); renderGoals(); renderOverview(); }
+function ideaToTask(id){
+  const idea=IDEAS.find(i=>i.id===id);if(!idea)return;
+  S.converted++;updateIdeaStats();
+  openTaskModal(idea.text.length>90?idea.text.substring(0,90):idea.text,idea.v);
+  gotoTab('tasks',null);
 }
-function deleteGoal(id) {
-  S.goals = S.goals.filter(g => g.id !== id);
-  renderGoals(); renderOverview();
+function updateIdeaStats(){
+  document.getElementById('is-saved').textContent=S.savedIdeas.size;
+  document.getElementById('is-tasks').textContent=S.converted;
+  document.getElementById('is-notes').textContent=bsNotes.length;
 }
-
-// ═══════════════════════════════════════════
-// IDEAS GENERATOR — AI POWERED
-// ═══════════════════════════════════════════
-async function generateIdeas() {
-  const vertical  = document.getElementById('ideaVertical').value;
-  const category  = document.getElementById('ideaCategory').value;
-  const btn       = document.getElementById('generateBtn');
-
-  btn.classList.add('generating'); btn.disabled = true;
-
-  // Show skeletons
-  const grid = document.getElementById('ideaGrid');
-  grid.innerHTML = Array(12).fill(0).map(() => `
-    <div class="idea-skeleton">
-      <div class="skeleton" style="width:90%;height:13px"></div>
-      <div class="skeleton" style="width:70%;height:11px;margin-top:6px;"></div>
-      <div class="skeleton" style="width:40%;height:10px;margin-top:8px;"></div>
-    </div>`).join('');
-
-  const vLabel = vertical === 'all' ? 'Astro Arun Pandit, GemsMantra, Horocosmo, Online Pooja, and Occult Gurukul' : VERTICALS[vertical]?.label || vertical;
-  const catLabel = category === 'all' ? 'revenue, product, marketing, content, operations, and community' : category;
-
-  const prompt = `You are a strategic growth consultant for a group of astrology and spiritual wellness businesses in India. Generate exactly 108 distinct, actionable, specific ideas for the following:
-
-Business vertical(s): ${vLabel}
-Category focus: ${catLabel}
-
-Context about the verticals:
-- Astro Arun Pandit: Flagship personal astrology brand. Services include Lal Kitab calculator/reports, horoscopes, consultations with Arun Pandit, and personalised remedies. Target: urban Indians seeking astrology guidance.
-- GemsMantra: Gemstone and mantra recommendation platform. Sells certified gemstones aligned with birth charts. Combines e-commerce with astrological guidance.
-- Horocosmo: Daily/weekly/monthly horoscope platform. Content-first, ad and subscription model. High SEO potential.
-- Online Pooja: Book poojas and rituals performed by verified pandits. Serves NRIs and urban Indians who can't perform rituals themselves.
-- Occult Gurukul: Astrology and occult learning platform. Courses on Lal Kitab, Vedic astrology, numerology, tarot for students who want to learn.
-
-For each idea, respond ONLY with a valid JSON array (no markdown, no preamble, no explanation). Each object must have exactly these fields:
-- "text": the idea in 1-2 crisp sentences
-- "vertical": one of "aap", "gems", "horo", "puja", "occult", or "all"
-- "category": one of "Revenue", "Product", "Marketing", "Content", "Operations", "Community"
-- "effort": "Low", "Medium", or "High"
-
-Output exactly 108 objects. No more, no less. Start directly with [ and end with ].`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 16000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await res.json();
-    const raw  = data.content?.[0]?.text || '';
-    const start = raw.indexOf('[');
-    const end   = raw.lastIndexOf(']');
-    let ideas   = [];
-
-    if (start !== -1 && end !== -1) {
-      try {
-        ideas = JSON.parse(raw.slice(start, end + 1));
-      } catch(e) {
-        // try cleaning
-        const cleaned = raw.slice(start, end + 1).replace(/,\s*]/, ']');
-        ideas = JSON.parse(cleaned);
-      }
-    }
-
-    if (!ideas.length) throw new Error('No ideas parsed');
-
-    // Filter by selected vertical if specific
-    let filtered = ideas;
-    if (vertical !== 'all') filtered = ideas.filter(i => i.vertical === vertical || i.vertical === 'all');
-    if (category !== 'all') filtered = filtered.filter(i => i.category?.toLowerCase() === category.toLowerCase() || i.category === catLabel);
-
-    // Assign IDs, preserve saved status
-    S.ideas = filtered.map((i, idx) => ({ ...i, id: Date.now() + idx }));
-
-    ideaFilter  = 'all';
-    showSavedOnly = false;
-    renderIdeas();
-
-  } catch(err) {
-    console.error(err);
-    grid.innerHTML = `<div class="card" style="grid-column:1/-1;text-align:center;padding:30px;">
-      <p style="color:var(--red);font-size:0.85rem;">⚠ Could not generate ideas. Please try again.</p>
-      <p style="font-size:0.75rem;color:var(--ink-lt);margin-top:6px;">${err.message}</p>
-    </div>`;
-  }
-
-  btn.classList.remove('generating'); btn.disabled = false;
-}
-
-function renderIdeas() {
-  const grid  = document.getElementById('ideaGrid');
-  const badge = document.getElementById('ideaCountBadge');
-  const clearBtn = document.getElementById('clearIdeasBtn');
-
-  let ideas = S.ideas;
-  if (ideaFilter !== 'all') ideas = ideas.filter(i => i.vertical === ideaFilter || (ideaFilter === 'all'));
-  if (showSavedOnly) ideas = ideas.filter(i => S.savedIdeas.has(i.id));
-
-  badge.textContent = `${S.ideas.length} ideas generated`;
-  clearBtn.style.display = S.ideas.length ? 'inline-flex' : 'none';
-
-  // Category filter tabs
-  const cats = [...new Set(S.ideas.map(i => i.category))].filter(Boolean);
-  const filterDiv = document.getElementById('ideaFilterTabs');
-  filterDiv.innerHTML = cats.length ? [
-    `<div class="vtab active" data-v="all" onclick="setIdeaVFilter('all')">All</div>`,
-    ...Object.keys(VERTICALS).filter(v => S.ideas.some(i => i.vertical === v)).map(v =>
-      `<div class="vtab" data-v="${v}" onclick="setIdeaVFilter('${v}')">${VERTICALS[v].label}</div>`)
-  ].join('') : '';
-
-  if (!ideas.length) {
-    grid.innerHTML = `<div style="grid-column:1/-1"><div class="empty card"><span class="ei">✦</span><p>Click "Generate 100+ Ideas" to get started.<br>Choose a vertical and category for focused ideas.</p></div></div>`;
-    return;
-  }
-
-  const catColors = { Revenue:'#FBF0D8', Product:'#EEF3FF', Marketing:'#F2EEFF', Content:'#EAF5EE', Operations:'#F1EDE4', Community:'#FDEAEA' };
-  const catText   = { Revenue:'var(--amber-dk)', Product:'var(--blue)', Marketing:'var(--purple)', Content:'var(--green)', Operations:'var(--ink-mid)', Community:'var(--red)' };
-  const effortColors = { Low:'var(--green)', Medium:'var(--gold-dk)', High:'var(--red)' };
-
-  grid.innerHTML = ideas.map(idea => {
-    const saved = S.savedIdeas.has(idea.id);
-    return `
-    <div class="idea-card ${saved?'saved':''}" id="idea-${idea.id}">
-      <div class="idea-card-top">
-        <div class="idea-text">${idea.text}</div>
-        <button class="save-btn ${saved?'saved-icon':''}" onclick="toggleSaveIdea(${idea.id})" title="${saved?'Unsave':'Save'}">
-          ${saved?'⭐':'☆'}
-        </button>
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px;">
-        ${idea.vertical && idea.vertical !== 'all' ? `<span class="tag ${VERTICALS[idea.vertical]?.tagClass||''}">${VERTICALS[idea.vertical]?.label||idea.vertical}</span>` : ''}
-        ${idea.category ? `<span style="font-size:0.64px;font-weight:600;padding:2px 8px;border-radius:20px;background:${catColors[idea.category]||'#F1EDE4'};color:${catText[idea.category]||'var(--ink-mid)'};font-size:0.64rem;">${idea.category}</span>` : ''}
-        ${idea.effort ? `<span style="font-size:0.62rem;color:${effortColors[idea.effort]||'var(--ink-lt)'};font-weight:600;">● ${idea.effort} effort</span>` : ''}
-        <button class="add-task-btn" onclick="ideaToTask(${idea.id})">+ Task</button>
-      </div>
-    </div>`;
+function renderIdeas(){
+  const el=document.getElementById('ideaBoard');
+  const verts=Object.entries(VX).filter(([k])=>ideaFilter==='all'||ideaFilter===k);
+  el.innerHTML=verts.map(([k,meta])=>{
+    let ideas=IDEAS.filter(i=>i.v===k);
+    if(savedOnly)ideas=ideas.filter(i=>S.savedIdeas.has(i.id));
+    if(!ideas.length)return '';
+    const cards=ideas.map(idea=>{
+      const sv=S.savedIdeas.has(idea.id);
+      const cs=CS[idea.cat]||{bg:'#F1EDE4',c:'#5C3D1A'};
+      return `<div class="idea-card ${sv?'saved':''}" id="idea-${idea.id}"><div class="idea-text">${idea.text}</div><div class="idea-footer"><span class="cat-pill" style="background:${cs.bg};color:${cs.c};">${idea.cat}</span><button class="idea-task-btn" onclick="ideaToTask(${idea.id})">+ Task</button><button class="idea-save-btn ${sv?'saved':''}" onclick="toggleSaveIdea(${idea.id})">${sv?'★':'☆'}</button></div></div>`;
+    }).join('');
+    return `<div class="v-section"><div class="v-section-hdr"><div class="v-dot" style="background:${meta.color};"></div><div class="v-name">${meta.label}</div><div class="v-count">${ideas.length} ideas</div></div><div class="idea-grid">${cards}</div></div>`;
   }).join('');
-
-  // Sync vtab highlights
-  document.querySelectorAll('#ideaFilterTabs .vtab').forEach(t => {
-    t.classList.toggle('active', t.dataset.v === ideaFilter);
-  });
+  if(!el.innerHTML.trim())el.innerHTML=`<div class="card"><div class="empty"><span class="ei">☆</span><p>No saved ideas yet — star any idea to save it here.</p></div></div>`;
+  updateIdeaStats();
 }
 
-function setIdeaVFilter(v) {
-  ideaFilter = v;
-  renderIdeas();
+// BRAINSTORM
+function setBsV(v){bsV=v;document.querySelectorAll('.bs-vtab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));}
+function addBsNote(){
+  const inp=document.getElementById('bsInput');
+  const text=inp.value.trim();if(!text)return;
+  bsNotes.push({id:Date.now(),text,v:bsV});inp.value='';
+  renderBsNotes();updateIdeaStats();
+}
+document.getElementById('bsInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addBsNote();}});
+function deleteBsNote(id){bsNotes=bsNotes.filter(n=>n.id!==id);renderBsNotes();updateIdeaStats();}
+function renderBsNotes(){
+  const el=document.getElementById('bsNotes');
+  if(!bsNotes.length){el.innerHTML=`<div class="bs-empty">Your brainstorm notes will appear here. Press Enter to save quickly.</div>`;return;}
+  el.innerHTML=bsNotes.map(n=>{const m=VX[n.v];return `<div class="bs-note"><span class="bs-note-v" style="background:${m.bg};color:${m.text};">${m.label}</span><span style="flex:1;">${n.text}</span><button class="bs-del" onclick="deleteBsNote(${n.id})">✕</button></div>`;}).join('');
 }
 
-function toggleSaveIdea(id) {
-  if (S.savedIdeas.has(id)) S.savedIdeas.delete(id);
-  else S.savedIdeas.add(id);
-  renderIdeas(); renderOverview();
-}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function fmtDate(s){return s?new Date(s+'T12:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'—';}
+document.querySelectorAll('.modal-bg').forEach(bg=>bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.remove('open');}));
 
-function ideaToTask(id) {
-  const idea = S.ideas.find(i => i.id === id);
-  if (!idea) return;
-  // Pre-fill task modal with idea text
-  const vMap = { aap:'aap', gems:'gems', horo:'horo', puja:'puja', occult:'occult' };
-  document.getElementById('taskModalTitle').textContent = 'New Task from Idea';
-  document.getElementById('t-title').value    = idea.text.length > 80 ? idea.text.substring(0,80) : idea.text;
-  document.getElementById('t-vertical').value = vMap[idea.vertical] || 'aap';
-  document.getElementById('t-priority').value = 'med';
-  document.getElementById('t-area').value     = idea.category || 'Revenue';
-  document.getElementById('t-due').value      = '';
-  document.getElementById('t-notes').value    = '';
-  editingTaskId = null;
-  document.getElementById('taskModal').classList.add('open');
-  // Switch to tasks view after save
-}
-
-function filterSaved() {
-  showSavedOnly = !showSavedOnly;
-  renderIdeas();
-}
-
-function clearIdeas() {
-  if (confirm('Clear all generated ideas? (Saved status will be lost)')) {
-    S.ideas = []; S.savedIdeas.clear();
-    renderIdeas(); renderOverview();
-  }
-}
-
-// ═══════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-function formatDate(s) {
-  if (!s) return '—';
-  return new Date(s + 'T12:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
-}
-
-document.querySelectorAll('.modal-bg').forEach(bg => {
-  bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('open'); });
-});
-
-init();
+init();renderBsNotes();
 </script>
 </body>
 </html>
