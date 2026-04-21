@@ -227,7 +227,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--amber-bg);color:var(--ink
   <div class="nav-item active" onclick="gotoTab('overview',this)"><span class="nav-icon">◈</span> Overview</div>
   <div class="nav-item" onclick="gotoTab('tasks',this)"><span class="nav-icon">✓</span> Tasks</div>
   <div class="nav-item" onclick="gotoTab('goals',this)"><span class="nav-icon">◎</span> Goals</div>
-  <div class="nav-item" onclick="gotoTab('ideas',this)"><span class="nav-icon">✦</span> Ideas Generator</div>
+  <div class="nav-item" onclick="gotoTab('ideas',this)"><span class="nav-icon">✦</span> Ideas </div>
 
   <div class="sb-sec">Verticals</div>
   <div class="nav-item" onclick="gotoTab('tasks',this);setVFilter('aap')"><span class="nav-icon" style="color:#D4924A;">●</span> Astro Arun Pandit</div>
@@ -303,7 +303,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--amber-bg);color:var(--ink
     <div class="card">
       <div class="card-title">
         <div class="card-title-l"><span class="cicon">✦</span> Saved Ideas</div>
-        <button class="btn btn-ghost btn-sm" onclick="gotoTab('ideas',null)">Ideas generator →</button>
+        <button class="btn btn-ghost btn-sm" onclick="gotoTab('ideas',null)">Ideas →</button>
       </div>
       <div id="ov-ideas-preview"></div>
     </div>
@@ -346,7 +346,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--amber-bg);color:var(--ink
     <div class="card" style="margin-bottom:18px;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
         <div>
-          <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:4px;">AI Ideas Generator</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:4px;">AI Ideas</div>
           <div style="font-size:0.8rem;color:var(--ink-lt);line-height:1.5;max-width:520px;">Generate 100+ strategic ideas for any vertical. Save ideas to your board or instantly convert them into tasks.</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
@@ -512,7 +512,7 @@ function renderAll() {
 // ═══════════════════════════════════════════
 // NAV
 // ═══════════════════════════════════════════
-const TITLES = { overview:'Overview', tasks:'Tasks', goals:'Goals', ideas:'Ideas Generator' };
+const TITLES = { overview:'Overview', tasks:'Tasks', goals:'Goals', ideas:'Ideas' };
 const SUBS   = {
   overview:'Your personal ops workspace across all 5 verticals.',
   tasks:'Manage tasks across all verticals. Filter by vertical using the tabs.',
@@ -567,7 +567,7 @@ function renderOverview() {
   // saved ideas preview
   const ip = document.getElementById('ov-ideas-preview');
   const saved = S.ideas.filter(i => S.savedIdeas.has(i.id)).slice(0, 6);
-  if (!saved.length) { ip.innerHTML = '<div class="empty"><p>No saved ideas yet — use the Ideas Generator →</p></div>'; }
+  if (!saved.length) { ip.innerHTML = '<div class="empty"><p>No saved ideas yet - use the Ideas Generator →</p></div>'; }
   else ip.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:8px;">` +
     saved.map(i => `<div style="background:var(--amber-pale);border:1px solid var(--cream-bd);border-radius:20px;padding:4px 12px;font-size:0.78rem;color:var(--amber-dk);">⭐ ${i.text.substring(0,60)}${i.text.length>60?'…':''}</div>`).join('') + `</div>`;
 }
